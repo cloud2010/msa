@@ -15,24 +15,31 @@ db.once("open", function() {
 var cargoshipSchema = new mongoose.Schema(
   {
     timestamp: { type: Number },
+    isPublished : {type: Boolean},
     cargoshipInfo: { type: Array }
   },
   { collection: "cargoships" }
 );
 var emergencySchema = new mongoose.Schema(
   {
+    timestamp: { type: Number },
+    isPublished : {type: Boolean},
     Emergency: { type: Array }
   },
   { collection: "emergency" }
 );
 var loginInfoSchema = new mongoose.Schema(
   {
+    timestamp: { type: Number },
+    isPublished : {type: Boolean},
     members: { type: Array }
   },
   { collection: "loginInfo" }
 );
 var dbinfoSchema = new mongoose.Schema(
   {
+    timestamp: { type: Number },
+    isPublished : {type: Boolean},
     DBInfo: { type: Array }
   },
   { collection: "dbInfo" }
