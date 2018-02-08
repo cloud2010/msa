@@ -12,13 +12,43 @@ db.once("open", function() {
 });
 
 // 构建表模式
-var cargoshipSchema = new mongoose.Schema({
-  timestamp: { type: Number },
-  cargoshipInfo: { type: Array }
+var cargoshipSchema = new mongoose.Schema(
+  {
+    timestamp: { type: Number },
+    cargoshipInfo: { type: Array }
+  },
+  { collection: "cargoships" }
+);
+var emergencySchema = new mongoose.Schema(
+  {
+    Emergency: { type: Array }
+  },
+  { collection: "emergency" }
+);
+var loginInfoSchema = new mongoose.Schema(
+  {
+    members: { type: Array }
+  },
+  { collection: "loginInfo" }
+);
+var dbinfoSchema = new mongoose.Schema(
+  {
+    DBInfo: { type: Array }
+  },
+  { collection: "dbInfo" }
+);
+var verCheckSchema = new mongoose.Schema({
+  verCheck: { type: Array }
 });
 
 /**
  * 导出表模型
- * mongoose 模型映射会自动在name后面加后缀s
+ * ref: https://stackoverflow.com/questions/10547118/why-does-mongoose-always-add-an-s-to-the-end-of-my-collection-name/24464025
  */
-module.exports = mongoose.model("cargoship", cargoshipSchema);
+var dbutil = {
+  cargoship: mongoose.model("Cargoship", cargoshipSchema),
+  emergency: mongoose.model("Emergency", emergencySchema),
+  loginInfo: mongoose.model("LoginInfo", loginInfoSchema),
+  dbInfo: mongoose.model("DBInfo", dbinfoSchema)
+};
+module.exports = dbutil;
