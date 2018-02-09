@@ -7,19 +7,25 @@
 import app from '../app'
 import http from 'http'
 import Debug from 'debug'
+import { getLogger } from 'log4js'
 
 /**
  * Create HTTP server debugger.
  */
 const debug = Debug('msa:server')
 
-// var debug = require('debug')('server:server')
+/**
+ * Initialise log4js first, so we don't miss any log messages
+ */
+// configure(path.join(__dirname, '../../config/log4js.json'))
+
+const logger = getLogger('startup')
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-const normalizePort = (val) => {
+const normalizePort = val => {
   let port = parseInt(val, 10)
 
   if (isNaN(port)) {
@@ -39,7 +45,7 @@ const normalizePort = (val) => {
  * Event listener for HTTP server "error" event.
  */
 
-const onError = (error) => {
+const onError = error => {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -69,6 +75,7 @@ const onListening = () => {
   let addr = server.address()
   let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
+  logger.debug('Listening on ' + bind)
 }
 
 /**

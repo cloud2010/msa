@@ -1,12 +1,19 @@
 import express from 'express'
 import path from 'path'
-import favicon from 'serve-favicon'
-import logger from 'morgan'
+// import favicon from 'serve-favicon'
+// import logger from 'morgan'
+import { configure, getLogger, connectLogger } from 'log4js'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import index from './routes/index'
 
 const app = express()
+
+/**
+ * Initialise log4js first, so we don't miss any log messages
+ */
+configure(path.join(__dirname, '../config/log4js.json'))
+const logger = getLogger('app')
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'))
@@ -14,7 +21,9 @@ app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'))
+// app.use(logger('dev'));
+// replace this with the log4js connect-logger
+app.use(connectLogger(getLogger('http'), { level: 'auto' }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -34,7 +43,7 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
-
+  logger.error('Something went wrong:', err)
   // render the error page
   res.status(err.status || 500)
   res.render('error')

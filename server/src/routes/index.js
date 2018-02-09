@@ -1,9 +1,11 @@
 import { Router } from 'express'
 // 数据库模型
 import dbutil from './db'
+import { getLogger } from 'log4js'
 // 读取数据库信息
 // var vercheck = require("../data/verCheck.json");
 const router = Router()
+const logger = getLogger('app')
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'MSA Database version check' })
@@ -18,8 +20,7 @@ router.get('/login-info', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        console.log('查询结果为：')
-        console.log(docs[0].members.length)
+        logger.info('查询结果：' + docs[0].members.length)
         res.send(docs[0])
       }
     }
@@ -37,8 +38,7 @@ router.get('/cargoship', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        console.log('查询结果为：')
-        console.log(docs[0].cargoshipInfo.length)
+        logger.info('查询结果：' + docs[0].cargoshipInfo.length)
         res.send(docs[0])
       }
     }
@@ -54,8 +54,7 @@ router.get('/emergency', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        console.log('查询结果为：')
-        console.log(docs[0].Emergency.length)
+        logger.info('查询结果：' + docs[0].Emergency.length)
         res.send(docs[0])
       }
     }
@@ -71,8 +70,7 @@ router.get('/db-info', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        console.log('查询结果为：')
-        console.log(docs[0].DBInfo.length)
+        logger.info('查询结果：' + docs[0].DBInfo.length)
         res.send(docs[0])
       }
     }
