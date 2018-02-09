@@ -6,8 +6,13 @@
 
 import app from '../app'
 import http from 'http'
-import { Debug } from 'debug'
-const debug = Debug('server:msa')
+import Debug from 'debug'
+
+/**
+ * Create HTTP server debugger.
+ */
+const debug = Debug('msa:server')
+
 // var debug = require('debug')('server:server')
 
 /**

@@ -20,3 +20,4 @@
 
 1. [https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/](https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/)
 2. [https://github.com/openyun/express-babel-es6](https://github.com/openyun/express-babel-es6)
+3. [https://github.com/vmasto/express-babel](https://github.com/vmasto/express-babel)
