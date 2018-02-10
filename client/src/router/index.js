@@ -4,8 +4,10 @@ import Router from 'vue-router'
 
 // 1. 定义（路由）组件。
 // 可以从其他文件 import 进来
-const About = { template: '<div>Hello About</div>' }
-const Home = { template: '<div>Homepage</div>' }
+const Cargoship = { template: '<div>液货船作业检查</div>' }
+const DbInfo = { template: '<div>危险货物数据库</div>' }
+const Emergency = { template: '<div>应急处置支持</div>' }
+const Home = { template: '<div>首页内容</div>' }
 
 Vue.use(Router)
 
@@ -21,9 +23,19 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+      path: '/emergency',
+      name: 'Emergency',
+      component: Emergency
+    },
+    {
+      path: '/cargoship',
+      name: 'Cargoship',
+      component: Cargoship
+    },
+    {
+      path: '/dbinfo',
+      name: 'DbInfo',
+      component: DbInfo
     }
   ]
 })
