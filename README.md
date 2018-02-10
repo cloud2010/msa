@@ -2,11 +2,16 @@
 
 前端基于 Vue，后端基于 Nodejs + Express + [Mongoose](http://mongoosejs.com)
 
-参考代码：**gjincai：** [vue-proj-demo](https://github.com/gjincai/vue-proj-demo)
-
 ## 前端实现
 
-主要技术：`vue-cli + vue2 + vue-router2 + vuex2 + axios + babel + sass + eslint`
+主要技术：`vue-cli + vue + CoreUI-Vue + axios + babel + sass + eslint`
+
+基于 [CoreUI](https://github.com/mrholek/CoreUI-Vue) 提供的后台管理 UI 进行二次开发
+
+主要参考：
+
+1. [https://github.com/mrholek/CoreUI-Vue](https://github.com/mrholek/CoreUI-Vue)
+2. [https://github.com/bootstrap-vue/bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue)
 
 ## 后端实现
 
