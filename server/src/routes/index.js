@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
 })
 
 /* 向客户端响应Login数据库信息 */
-router.get('/api/login-info', function (req, res) {
+router.get('/login-info', function (req, res) {
   dbutil.loginInfo.find(
     {},
     { timestamp: 1, isPublished: 1, members: 1, _id: 0 },
@@ -32,7 +32,7 @@ router.get('/api/login-info', function (req, res) {
 })
 
 /* 向客户端响应cargoship数据库信息 */
-router.get('/api/cargoship', function (req, res) {
+router.get('/cargoship', function (req, res) {
   // find(Conditions,fields,callback);
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
   dbutil.cargoship.find(
@@ -50,7 +50,7 @@ router.get('/api/cargoship', function (req, res) {
 })
 
 /* 向客户端响应emergency数据库信息 */
-router.get('/api/emergency', function (req, res) {
+router.get('/emergency', function (req, res) {
   dbutil.emergency.find(
     {},
     { timestamp: 1, isPublished: 1, Emergency: 1, _id: 0 },
@@ -66,7 +66,7 @@ router.get('/api/emergency', function (req, res) {
 })
 
 /* 向客户端响应数据库信息 */
-router.get('/api/db-info', function (req, res) {
+router.get('/db-info', function (req, res) {
   dbutil.dbInfo.find(
     {},
     { timestamp: 1, isPublished: 1, DBInfo: 1, _id: 0 },
@@ -82,7 +82,7 @@ router.get('/api/db-info', function (req, res) {
 })
 
 /* 向客户端响应数据库版本信息 */
-router.get('/api/ver', function (req, res) {
+router.get('/ver', function (req, res) {
   var releaseDate = Date.now()
   var ver = {
     verCheck: [
