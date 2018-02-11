@@ -4,6 +4,9 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
+// 挂载Vue ajax组件为第三方模块axios
+import axios from 'axios'
+Vue.prototype.$ajax = axios
 
 Vue.use(BootstrapVue)
 

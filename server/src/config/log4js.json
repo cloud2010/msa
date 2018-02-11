@@ -1,7 +1,8 @@
 {
   "appenders": {
     "console": {
-      "type": "console"
+      "type": "console",
+      "compress": "true"
     },
     "access": {
       "type": "dateFile",
@@ -18,7 +19,8 @@
     },
     "errorFile": {
       "type": "file",
-      "filename": "./log/errors.log"
+      "filename": "./log/errors.log",
+      "compress": "true"
     },
     "errors": {
       "type": "logLevelFilter",
@@ -27,7 +29,8 @@
     }
   },
   "categories": {
-    "default": { "appenders": ["app", "errors", "console"], "level": "ALL" },
+    "default": { "appenders": ["app", "console"], "level": "ALL" },
+    "error": { "appenders": ["errors"], "level": "ERROR" },
     "http": { "appenders": ["access"], "level": "DEBUG" }
   }
 }

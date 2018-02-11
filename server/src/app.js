@@ -12,8 +12,8 @@ const app = express()
 /**
  * Initialise log4js first, so we don't miss any log messages
  */
-configure(path.join(__dirname, '../config/log4js.json'))
-const logger = getLogger('app')
+configure(path.join(__dirname, './config/log4js.json'))
+const logger = getLogger('error')
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'))
@@ -43,7 +43,8 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
-  logger.error('Something went wrong:', err)
+  // 使用es6模版字符串``方法
+  logger.error(`Something went wrong: ${err.message} Request path: ${req.path}`)
   // render the error page
   res.status(err.status || 500)
   res.render('error')

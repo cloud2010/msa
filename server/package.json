@@ -11,7 +11,7 @@
     "start": "nodemon ./dist/bin/www.js",
     "dev": "nodemon ./src/bin/www.js --exec babel-node",
     "clean": "rimraf dist",
-    "build": "npm run clean && babel ./src -d dist"
+    "build": "npm run clean && babel ./src -D -d dist"
   },
   "dependencies": {
     "body-parser": "~1.18.2",

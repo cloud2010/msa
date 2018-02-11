@@ -16,7 +16,6 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "axios": "^0.17.1",
     "bootstrap": "4.0.0",
     "bootstrap-vue": "2.0.0-rc.1",
     "chart.js": "2.7.1",
@@ -29,6 +28,7 @@
   },
   "devDependencies": {
     "autoprefixer": "7.2.6",
+    "axios": "^0.17.1",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.1",
     "babel-loader": "7.1.2",
@@ -54,6 +54,7 @@
     "eslint-plugin-node": "6.0.0",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
+    "eslint-plugin-vue": "^4.2.2",
     "eventsource-polyfill": "0.9.6",
     "express": "4.16.2",
     "extract-text-webpack-plugin": "3.0.2",
