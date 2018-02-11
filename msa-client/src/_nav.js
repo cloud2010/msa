@@ -24,14 +24,14 @@ export default {
       icon: 'fa fa-anchor'
     },
     {
-      name: '液货船作业检查数据',
-      url: '/base/cargoship',
-      icon: 'fa fa-ship'
-    },
-    {
       name: '应急处置支持数据',
       url: '/base/emergency',
       icon: 'fa fa-support'
+    },
+    {
+      name: '液货船作业检查数据',
+      url: '/base/cargoship',
+      icon: 'fa fa-ship'
     },
     {
       title: true,
@@ -44,12 +44,12 @@ export default {
       children: [
         {
           name: '登录管理',
-          url: '/users/login',
+          url: '/users/rbac',
           icon: 'fa fa-sign-in'
         },
         {
           name: '注册管理',
-          url: '/users/register',
+          url: '/users/rbac',
           icon: 'fa fa-user-plus'
         },
         {

@@ -1,111 +1,151 @@
 <template>
-<div class="animated fadeIn">
-  <b-card :header="caption">
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <template slot="status" slot-scope="data">
-        <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
-      </template>
-    </b-table>
-    <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
-    </nav>
-  </b-card>
-</div>
+  <div class="animated fadeIn">
+    <b-card :header="caption">
+      <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+        <template slot="show_details" slot-scope="row">
+          <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
+          <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2" variant="primary">
+            详细内容
+          </b-button>
+        </template>
+        <template slot="edit_details" slot-scope="row">
+          <b-button size="sm" class="mr-2" variant="success">
+            修改
+          </b-button>
+        </template>
+        <template slot="del_details" slot-scope="row">
+          <b-button size="sm" class="mr-2" variant="danger">
+            删除
+          </b-button>
+        </template>
+        <template slot="row-details" slot-scope="row">
+          <small><b-card>
+            <b-row class="mb-2">
+              <b-col sm="1">
+                <b>标题:</b>
+              </b-col>
+              <b-col sm="11">
+                <div><p>{{ row.item.proContent.proTitle }}</p></div></b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="1">
+                <b>检查要点:</b>
+              </b-col>
+              <b-col sm="11">
+                <div v-for="(i, index) in row.item.proContent.checkPoint" :key="index">
+                  <p>{{i}}</p>
+                </div>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="1">
+                <b>检查原因:</b>
+              </b-col>
+              <b-col sm="11">
+                <div v-for="i in row.item.proContent.checkReason" :key="i.reasonName">
+                  <p>{{i.reasonName}}</p>
+                  <p>{{i.item}}</p>
+                </div>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="1">
+                <b>常见缺陷:</b>
+              </b-col>
+              <b-col sm="11">
+                <div v-for="(i, index) in row.item.proContent.weaknessItem" :key="index">
+                  <p>{{i}}</p>
+                </div>
+              </b-col>
+            </b-row>
+            <b-button size="sm" variant="primary" @click="row.toggleDetails">隐藏</b-button>
+          </b-card></small>
+        </template>
+      </b-table>
+      <nav>
+        <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="前一页" next-text="后一页" hide-goto-end-buttons/>
+      </nav>
+    </b-card>
+  </div>
 </template>
 
 <script>
-  /**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
+export default {
+  name: 'cargoship',
+  props: {
+    caption: {
+      type: String,
+      default: '液货船作业检查'
+    },
+    hover: {
+      type: Boolean,
+      default: true
+    },
+    striped: {
+      type: Boolean,
+      default: true
+    },
+    bordered: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: true
+    },
+    fixed: {
+      type: Boolean,
+      default: false
     }
-    return array
-  }
+  },
+  data: () => {
+    return {
+      items: {},
+      fields: [
+        { key: 'proName', label: '项目名称' },
+        { key: 'proTitle', label: '项目标题' },
+        { key: 'part', label: '部分' },
+        { key: 'show_details', label: '详细内容' },
+        { key: 'edit_details', label: '修改' },
+        { key: 'del_details', label: '删除' }
+      ],
+      currentPage: 1,
+      perPage: 15,
+      totalRows: 0
+    }
+  },
+  methods: {
+    // 向服务端请求cargoship数据
+    getCargoshipInfo () {
+      // do something
+      this.$http.get('/api/cargoship')
+        .then(response => {
+          console.log(response)
+          // 绑定数据
+          this.items = response.data.cargoshipInfo
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
 
-  export default {
-    name: 'cargoship',
-    props: {
-      caption: {
-        type: String,
-        default: 'Table'
-      },
-      hover: {
-        type: Boolean,
-        default: false
-      },
-      striped: {
-        type: Boolean,
-        default: false
-      },
-      bordered: {
-        type: Boolean,
-        default: false
-      },
-      small: {
-        type: Boolean,
-        default: false
-      },
-      fixed: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data: () => {
-      return {
-        items: shuffleArray([
-          {username: 'Samppa Nori', registered: '2012/01/01', role: 'Member', status: 'Active'},
-          {username: 'Estavan Lykos', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-          {username: 'Chetan Mohamed', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-          {username: 'Derick Maximinus', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-          {username: 'Friderik Dávid', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-          {username: 'Yiorgos Avraamu', registered: '2012/01/01', role: 'Member', status: 'Active'},
-          {username: 'Avram Tarasios', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-          {username: 'Quintin Ed', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-          {username: 'Enéas Kwadwo', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-          {username: 'Agapetus Tadeáš', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-          {username: 'Carwyn Fachtna', registered: '2012/01/01', role: 'Member', status: 'Active'},
-          {username: 'Nehemiah Tatius', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-          {username: 'Ebbe Gemariah', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-          {username: 'Eustorgios Amulius', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-          {username: 'Leopold Gáspár', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-          {username: 'Pompeius René', registered: '2012/01/01', role: 'Member', status: 'Active'},
-          {username: 'Paĉjo Jadon', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-          {username: 'Micheal Mercurius', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-          {username: 'Ganesha Dubhghall', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-          {username: 'Hiroto Šimun', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-          {username: 'Vishnu Serghei', registered: '2012/01/01', role: 'Member', status: 'Active'},
-          {username: 'Zbyněk Phoibos', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-          {username: 'Einar Randall', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-          {username: 'Félix Troels', registered: '2012/03/21', role: 'Staff', status: 'Active'},
-          {username: 'Aulus Agmundr', registered: '2012/01/01', role: 'Member', status: 'Pending'}
-        ]),
-        fields: [
-          {key: 'username'},
-          {key: 'registered'},
-          {key: 'role'},
-          {key: 'status'}
-        ],
-        currentPage: 1,
-        perPage: 5,
-        totalRows: 0
-      }
-    },
-    methods: {
-      getBadge (status) {
-        return status === 'Active' ? 'success'
-          : status === 'Inactive' ? 'secondary'
-            : status === 'Pending' ? 'warning'
-              : status === 'Banned' ? 'danger' : 'primary'
-      },
-      getRowCount (items) {
-        return items.length
-      }
+    // 读取元素个数用于分页
+    getRowCount (items) {
+      return items.length
     }
+  },
+  /**
+   * 不要在选项属性或回调上使用箭头函数，
+   * 比如 created: () => console.log(this.a) 或 vm.$watch('a', newValue => this.myMethod())。
+   * 因为箭头函数是和父级上下文绑定在一起的，this 不会是如你所预期的 Vue 实例，
+   * 经常导致 Uncaught TypeError: Cannot read property of undefined 或 Uncaught TypeError: this.myMethod is not a function 之类的错误。
+   */
+  // 钩子函数created期间读取数据
+  created () {
+    this.getCargoshipInfo()
+  },
+  mounted () {
+    // do something
   }
+}
 </script>

@@ -42,7 +42,7 @@ router.get('/cargoship', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        logger.info('查询结果：' + docs[0].cargoshipInfo.length)
+        // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
         res.json(docs[0])
       }
     }
@@ -58,7 +58,7 @@ router.get('/emergency', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        logger.info('查询结果：' + docs[0].Emergency.length)
+        // logger.info('查询结果：' + docs[0].Emergency.length)
         res.json(docs[0])
       }
     }
@@ -74,7 +74,7 @@ router.get('/db-info', function (req, res) {
       if (err) {
         console.log('查询出错：' + err)
       } else {
-        logger.info('查询结果：' + docs[0].DBInfo.length)
+        // logger.info('查询结果：' + docs[0].DBInfo.length)
         res.json(docs[0])
       }
     }
