@@ -13,6 +13,11 @@ import DBinfo from '@/views/base/DBinfo'
 import Cargoship from '@/views/base/Cargoship'
 import Emergency from '@/views/base/Emergency'
 
+// Views - Notifications
+import Alerts from '@/views/notifications/Alerts'
+import Badges from '@/views/notifications/Badges'
+import Modals from '@/views/notifications/Modals'
+
 Vue.use(Router)
 
 export default new Router({
@@ -82,6 +87,31 @@ export default new Router({
               path: 'rbac',
               name: '权限管理',
               component: Rbac
+            }
+          ]
+        },
+        {
+          path: 'notifications',
+          redirect: '/notifications/alerts',
+          name: '通知类组件',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'alerts',
+              name: '提示框',
+              component: Alerts
+            },
+            {
+              path: 'badges',
+              name: '应用标记',
+              component: Badges
+            },
+            {
+              path: 'modals',
+              name: '模态对话框',
+              component: Modals
             }
           ]
         }
