@@ -9,9 +9,15 @@ import Dashboard from '@/views/Dashboard'
 import Login from '@/views/users/Login'
 import Register from '@/views/users/Register'
 import Rbac from '@/views/users/Rbac'
-import DBinfo from '@/views/base/DBinfo'
-import Cargoship from '@/views/base/Cargoship'
-import Emergency from '@/views/base/Emergency'
+import DBinfo from '@/views/base/dbinfo/DBinfo'
+import DBinfoEdit from '@/views/base/dbinfo/Edit'
+import DBinfoAdd from '@/views/base/dbinfo/Add'
+import Cargoship from '@/views/base/cargoship/Cargoship'
+import CargoshipEdit from '@/views/base/cargoship/Edit'
+import CargoshipAdd from '@/views/base/cargoship/Add'
+import Emergency from '@/views/base/emergency/Emergency'
+import EmergencyEdit from '@/views/base/emergency/Edit'
+import EmergencyAdd from '@/views/base/emergency/Add'
 
 // Views - Notifications
 import Alerts from '@/views/notifications/Alerts'
@@ -28,18 +34,27 @@ export default new Router({
     {
       path: '/',
       redirect: '/dashboard',
-      name: '首页',
+      name: 'Home',
+      meta: {
+        label: '首页'
+      },
       component: Full,
       children: [
         {
           path: 'dashboard',
-          name: '主控制台',
-          component: Dashboard
+          name: 'Dashboard',
+          component: Dashboard,
+          meta: {
+            label: '控制台'
+          }
         },
         {
           path: '/base',
           redirect: '/base/dbinfo',
-          name: '数据维护',
+          name: 'Base',
+          meta: {
+            label: '数据维护'
+          },
           component: {
             render (c) {
               return c('router-view')
@@ -48,25 +63,128 @@ export default new Router({
           children: [
             {
               path: 'dbinfo',
-              name: '危险货物数据',
-              component: DBinfo
+              name: 'DBinfo',
+              meta: {
+                label: '危险货物'
+              },
+              component: {
+                render (c) {
+                  return c('router-view')
+                }
+              },
+              children: [
+                {
+                  path: 'view',
+                  name: 'dbinfoView',
+                  meta: {
+                    label: '数据查看'
+                  },
+                  component: DBinfo
+                },
+                {
+                  path: 'edit/:dId',
+                  name: 'dbinfoEdit',
+                  meta: {
+                    label: '数据编辑'
+                  },
+                  component: DBinfoEdit
+                },
+                {
+                  path: 'add',
+                  name: 'dbinfoAdd',
+                  meta: {
+                    label: '数据添加'
+                  },
+                  component: DBinfoAdd
+                }
+              ]
             },
             {
               path: 'cargoship',
-              name: '液货船作业检查数据',
-              component: Cargoship
+              name: 'Cargoship',
+              meta: {
+                label: '液货船作业检查'
+              },
+              component: {
+                render (c) {
+                  return c('router-view')
+                }
+              },
+              children: [
+                {
+                  path: 'view',
+                  name: 'cargoshipView',
+                  meta: {
+                    label: '数据查看'
+                  },
+                  component: Cargoship
+                },
+                {
+                  path: 'edit/:cId',
+                  name: 'cargoshipEdit',
+                  meta: {
+                    label: '数据编辑'
+                  },
+                  component: CargoshipEdit
+                },
+                {
+                  path: 'add',
+                  name: 'cargoshipAdd',
+                  meta: {
+                    label: '数据添加'
+                  },
+                  component: CargoshipAdd
+                }
+              ]
             },
             {
               path: 'emergency',
-              name: '应急处置支持数据',
-              component: Emergency
+              redirect: 'emergency/view',
+              name: 'Emergency',
+              meta: {
+                label: '应急处置支持'
+              },
+              component: {
+                render (c) {
+                  return c('router-view')
+                }
+              },
+              children: [
+                {
+                  path: 'view',
+                  name: 'emergencyView',
+                  meta: {
+                    label: '数据查看'
+                  },
+                  component: Emergency
+                },
+                {
+                  path: 'edit/:eId',
+                  name: 'emergencyEdit',
+                  meta: {
+                    label: '数据编辑'
+                  },
+                  component: EmergencyEdit
+                },
+                {
+                  path: 'add',
+                  name: 'emergencyAdd',
+                  meta: {
+                    label: '数据添加'
+                  },
+                  component: EmergencyAdd
+                }
+              ]
             }
           ]
         },
         {
           path: '/users',
           redirect: '/users/Login',
-          name: '用户管理',
+          name: 'Users',
+          meta: {
+            label: '用户管理'
+          },
           component: {
             render (c) {
               return c('router-view')
@@ -75,17 +193,26 @@ export default new Router({
           children: [
             {
               path: 'login',
-              name: '登录管理',
+              name: 'Login',
+              meta: {
+                label: '登陆管理'
+              },
               component: Login
             },
             {
               path: 'register',
-              name: '注册管理',
+              name: 'Register',
+              meta: {
+                label: '注册管理'
+              },
               component: Register
             },
             {
               path: 'rbac',
-              name: '权限管理',
+              name: 'Rbac',
+              meta: {
+                label: '权限管理'
+              },
               component: Rbac
             }
           ]
@@ -93,24 +220,26 @@ export default new Router({
         {
           path: 'notifications',
           redirect: '/notifications/alerts',
-          name: '通知类组件',
+          name: 'Notifications',
           component: {
-            render (c) { return c('router-view') }
+            render (c) {
+              return c('router-view')
+            }
           },
           children: [
             {
               path: 'alerts',
-              name: '提示框',
+              name: 'Alerts',
               component: Alerts
             },
             {
               path: 'badges',
-              name: '应用标记',
+              name: 'Badges',
               component: Badges
             },
             {
               path: 'modals',
-              name: '模态对话框',
+              name: 'Modals',
               component: Modals
             }
           ]

@@ -69,7 +69,7 @@
             header-tag="header"
             footer-tag="footer">
             <div slot="header">
-              <i class="fa fa-align-justify"></i>Alerts</strong>
+              <i class="fa fa-align-justify"></i><strong>Alerts</strong>
               <small>with additional content</small>
             </div>
             <b-alert show variant="success">
@@ -91,7 +91,7 @@
             header-tag="header"
             footer-tag="footer">
             <div slot="header">
-              <i class="fa fa-align-justify"></i>Alerts</strong>
+              <i class="fa fa-align-justify"></i><strong>Alerts</strong>
               <small>dismissible</small>
             </div>
             <div>
@@ -113,7 +113,7 @@
             header-tag="header"
             footer-tag="footer">
             <div slot="header">
-              <i class="fa fa-align-justify"></i>Alerts</strong>
+              <i class="fa fa-align-justify"></i><strong>Alerts</strong>
               <small>auto dismissible</small>
             </div>
             <div>

@@ -1,11 +1,12 @@
 # MSA 数据库 CRUD 接口
+
 [![Build Status](https://travis-ci.org/cloud2010/msa.svg?branch=master)](https://travis-ci.org/cloud2010/msa)
 
 前端基于 Vue，后端基于 Nodejs + Express + [Mongoose](http://mongoosejs.com)
 
 ## 前端实现
 
-主要技术：`vue-cli + vue + CoreUI-Vue + axios + babel + sass + eslint`
+主要技术：`vue-cli + vue + CoreUI-Vue + Bootstrap-Vue + axios + babel + sass + eslint`
 
 基于 [CoreUI](https://github.com/mrholek/CoreUI-Vue) 提供的后台管理 UI 进行二次开发
 

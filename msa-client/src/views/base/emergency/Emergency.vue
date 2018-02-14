@@ -1,6 +1,13 @@
 <template>
   <div class="animated fadeIn">
-    <b-card :header="caption">
+    <b-card header-tag="header">
+      <div slot="header">
+        <i class="fa fa-align-justify"></i> <strong>{{caption}}</strong>
+        <div class="card-actions">
+          <!-- 命名路由 -->
+          <strong><b-link :to="{ name: 'emergencyAdd' }">添加</b-link></strong>
+        </div>
+      </div>
       <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
         <template slot="show_details" slot-scope="row">
           <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
@@ -9,7 +16,7 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'emergencyEdit', params: { eId: row.item.Number }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
@@ -19,65 +26,65 @@
           </b-button>
         </template>
         <template slot="row-details" slot-scope="row">
-            <b-card>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>1、灭火方法:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.extinguishing }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>2、围油栏布设:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.oilfence }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>3、应急处置人员个人防护:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.PersonalProtection }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>4、急救-皮肤接触:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.skinExposure }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>5、急救-眼睛接触:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.eyeExposure }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>6、急救-吸入:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.inhalation }}</p>
-                </b-col>
-              </b-row>
-              <b-row class="mb-2">
-                <b-col sm="3">
-                  <b>7、急救-食入:</b>
-                </b-col>
-                <b-col sm="9">
-                  <p>{{ row.item.ingestion }}</p>
-                </b-col>
-              </b-row>
-              <b-button size="sm" variant="primary" @click="row.toggleDetails">隐藏</b-button>
-            </b-card>
+          <b-card>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>1、灭火方法:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.extinguishing }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>2、围油栏布设:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.oilfence }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>3、应急处置人员个人防护:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.PersonalProtection }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>4、急救-皮肤接触:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.skinExposure }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>5、急救-眼睛接触:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.eyeExposure }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>6、急救-吸入:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.inhalation }}</p>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col sm="3">
+                <b>7、急救-食入:</b>
+              </b-col>
+              <b-col sm="9">
+                <p>{{ row.item.ingestion }}</p>
+              </b-col>
+            </b-row>
+            <b-button size="sm" variant="primary" @click="row.toggleDetails">隐藏</b-button>
+          </b-card>
         </template>
       </b-table>
       <nav>

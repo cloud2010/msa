@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - "8.9.4"  # 指定nodejs版本
+  - "8.9.4" # 指定nodejs版本
 before_install:     
- - cd msa-client  # 进入目录
-
-script:           # 执行编译脚本
-  - npm run build
+ - cd msa-client # 进入目录
+script:           
+  - npm run build # 执行编译脚本
