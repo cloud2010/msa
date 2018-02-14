@@ -22,9 +22,16 @@ const cargoshipSchema = new mongoose.Schema(
 )
 const emergencySchema = new mongoose.Schema(
   {
-    timestamp: { type: Number },
-    isPublished: { type: Boolean },
-    Emergency: { type: Array }
+    Number: { type: Number },
+    capital: { type: String },
+    ChineseName: { type: String },
+    extinguishing: { type: String },
+    oilfence: { type: String },
+    PersonalProtection: { type: String },
+    skinExposure: { type: String },
+    eyeExposure: { type: String },
+    inhalation: { type: String },
+    ingestion: { type: String }
   },
   { collection: 'emergency' }
 )
