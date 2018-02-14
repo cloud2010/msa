@@ -1,1 +1,6 @@
 language: node_js
+before_install:     
+ - cd msa-client  # 进入目录
+
+script:           # 执行编译脚本
+  - npm run build
