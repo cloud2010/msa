@@ -51,25 +51,18 @@ router.get('/cargoship', function (req, res) {
 
 /* 向客户端响应emergency数据库信息 */
 router.get('/emergency', function (req, res) {
-  dbutil.emergency.find(
-    {},
-    { _id: 0 },
-    function (err, docs) {
-      if (err) {
-        console.log('查询出错：' + err)
-      } else {
-        res.json(docs)
-      }
+  dbutil.emergency.find({}, { _id: 0 }, function (err, docs) {
+    if (err) {
+      console.log('查询出错：' + err)
+    } else {
+      res.json(docs)
     }
-  )
+  })
 })
 
 /* 按条件查询emergency数据库信息 */
 router.get('/emergency/:number', function (req, res) {
-  dbutil.emergency.findOne({ Number: req.params.number }, function (
-    err,
-    docs
-  ) {
+  dbutil.emergency.findOne({ Number: req.params.number }, function (err, docs) {
     if (err) {
       console.log(err)
       res.json({ Error: err })
