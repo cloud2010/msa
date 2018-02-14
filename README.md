@@ -1,4 +1,5 @@
 # MSA 数据库 CRUD 接口
+[![Build Status](https://travis-ci.org/cloud2010/msa.svg?branch=master)](https://travis-ci.org/cloud2010/msa)
 
 前端基于 Vue，后端基于 Nodejs + Express + [Mongoose](http://mongoosejs.com)
 
