@@ -235,7 +235,7 @@ export default {
         .then(response => {
           console.log(response)
           // 绑定数据
-          this.items = response.data.DBInfo
+          this.items = response.data
         })
         .catch(error => {
           console.log(error)

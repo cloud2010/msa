@@ -2,23 +2,27 @@
  * 数据库操作模块
  */
 import mongoose from 'mongoose'
+import { getLogger } from 'log4js'
+const logger = getLogger('db')
 mongoose.connect('mongodb://localhost:27017/msa')
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
   // we're connected!
-  console.log('数据库msa连接成功')
+  // console.log('数据库msa连接成功')
+  logger.info('数据库msa连接成功')
 })
 
 // 构建表模式
 const cargoshipSchema = new mongoose.Schema(
   {
-    timestamp: { type: Number },
-    isPublished: { type: Boolean },
-    cargoshipInfo: { type: Array }
+    proName: { type: String },
+    proTitle: { type: String },
+    part: { type: String },
+    proContent: { type: Object }
   },
-  { collection: 'cargoships' }
+  { collection: 'cargoship' }
 )
 const emergencySchema = new mongoose.Schema(
   {
@@ -37,23 +41,31 @@ const emergencySchema = new mongoose.Schema(
 )
 const loginInfoSchema = new mongoose.Schema(
   {
-    timestamp: { type: Number },
-    isPublished: { type: Boolean },
-    members: { type: Array }
+    account: { type: String },
+    password: { type: String },
+    user: { type: String }
   },
   { collection: 'loginInfo' }
 )
 const dbinfoSchema = new mongoose.Schema(
   {
-    timestamp: { type: Number },
-    isPublished: { type: Boolean },
-    DBInfo: { type: Array }
+    Number: { type: Number },
+    capital: { type: String },
+    ChineseName: { type: String },
+    classification: { type: String },
+    Unnum: { type: String },
+    basicInfo: { type: Object },
+    property: { type: Object },
+    jobRequirements: { type: Object },
+    StructuralRequest: { type: Object },
+    EquipmentRequest: { type: Object },
+    specialRequest: { type: Object }
   },
-  { collection: 'dbInfo' }
+  { collection: 'dbinfo' }
 )
-const verCheckSchema = new mongoose.Schema({
-  verCheck: { type: Array }
-})
+// const verCheckSchema = new mongoose.Schema({
+//   verCheck: { type: Array }
+// })
 
 /**
  * 导出表模型

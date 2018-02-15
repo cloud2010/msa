@@ -6,7 +6,7 @@ import { getLogger } from 'log4js'
 // 读取数据库信息
 // var vercheck = require("../data/verCheck.json");
 const router = Router()
-const logger = getLogger('app')
+const logger = getLogger('CRUD')
 /* GET home page. */
 router.get('/', function (req, res, next) {
   // res.render('index', { title: 'MSA Database version check' })
@@ -17,43 +17,35 @@ router.get('/', function (req, res, next) {
 
 /* 向客户端响应Login数据库信息 */
 router.get('/login-info', function (req, res) {
-  dbutil.loginInfo.find(
-    {},
-    { timestamp: 1, isPublished: 1, members: 1, _id: 0 },
-    function (err, docs) {
-      if (err) {
-        console.log('查询出错：' + err)
-      } else {
-        logger.info('查询结果：' + docs[0].members.length)
-        res.json(docs[0])
-      }
+  dbutil.loginInfo.find({}, { _id: 0 }, function (err, docs) {
+    if (err) {
+      // console.log('查询出错：' + err)
+      logger.error(`查询出错${err}`)
+    } else {
+      res.json(docs)
     }
-  )
+  })
 })
 
 /* 向客户端响应cargoship数据库信息 */
 router.get('/cargoship', function (req, res) {
   // find(Conditions,fields,callback);
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
-  dbutil.cargoship.find(
-    {},
-    { timestamp: 1, isPublished: 1, cargoshipInfo: 1, _id: 0 },
-    function (err, docs) {
-      if (err) {
-        console.log('查询出错：' + err)
-      } else {
-        // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
-        res.json(docs[0])
-      }
+  dbutil.cargoship.find({}, { _id: 0 }, function (err, docs) {
+    if (err) {
+      logger.error(`查询出错${err}`)
+    } else {
+      // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
+      res.json(docs)
     }
-  )
+  })
 })
 
 /* 向客户端响应emergency数据库信息 */
 router.get('/emergency', function (req, res) {
   dbutil.emergency.find({}, { _id: 0 }, function (err, docs) {
     if (err) {
-      console.log('查询出错：' + err)
+      logger.error(`查询出错${err}`)
     } else {
       res.json(docs)
     }
@@ -64,10 +56,11 @@ router.get('/emergency', function (req, res) {
 router.get('/emergency/:number', function (req, res) {
   dbutil.emergency.findOne({ Number: req.params.number }, function (err, docs) {
     if (err) {
-      console.log(err)
+      logger.error(`查询出错${err}`)
       res.json({ Error: err })
     } else {
-      console.log(req.params.number)
+      // console.log(req.params.number)
+      logger.info(req.path)
       console.log(docs)
       res.json(docs)
     }
@@ -76,18 +69,13 @@ router.get('/emergency/:number', function (req, res) {
 
 /* 向客户端响应数据库信息 */
 router.get('/db-info', function (req, res) {
-  dbutil.dbInfo.find(
-    {},
-    { timestamp: 1, isPublished: 1, DBInfo: 1, _id: 0 },
-    function (err, docs) {
-      if (err) {
-        console.log('查询出错：' + err)
-      } else {
-        // logger.info('查询结果：' + docs[0].DBInfo.length)
-        res.json(docs[0])
-      }
+  dbutil.dbInfo.find({}, { _id: 0 }, function (err, docs) {
+    if (err) {
+      logger.error(`查询出错${err}`)
+    } else {
+      res.json(docs)
     }
-  )
+  })
 })
 
 /* 向客户端响应数据库版本信息 */
@@ -120,7 +108,7 @@ router.get('/ver', function (req, res) {
   // fs模块写入文件测试
   fs.writeFile('./dist/ver.json', JSON.stringify(ver), 'utf-8', err => {
     if (err) {
-      console.log(err)
+      logger.error(`写入Json文件出错${err}`)
     }
   })
   res.json(ver)

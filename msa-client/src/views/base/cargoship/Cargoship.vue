@@ -42,7 +42,7 @@
                 <b>检查原因:</b>
               </b-col>
               <b-col sm="11">
-                <div v-for="i in row.item.proContent.checkReason" :key="i.reasonName">
+                <div v-for="(i, index) in row.item.proContent.checkReason" :key="index">
                   <p>{{i.reasonName}}</p>
                   <p>{{i.item}}</p>
                 </div>
@@ -122,7 +122,7 @@ export default {
         .then(response => {
           console.log(response)
           // 绑定数据
-          this.items = response.data.cargoshipInfo
+          this.items = response.data
         })
         .catch(error => {
           console.log(error)
