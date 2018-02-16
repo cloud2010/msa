@@ -24,7 +24,7 @@ export default {
       icon: 'fa fa-anchor',
       children: [
         {
-          name: '编辑数据',
+          name: '查看编辑数据',
           url: '/base/dbinfo/view',
           icon: 'fa fa-table'
         },
@@ -41,7 +41,7 @@ export default {
       icon: 'fa fa-support',
       children: [
         {
-          name: '编辑数据',
+          name: '查看编辑数据',
           url: '/base/emergency/view',
           icon: 'fa fa-table'
         },
@@ -58,7 +58,7 @@ export default {
       icon: 'fa fa-ship',
       children: [
         {
-          name: '编辑数据',
+          name: '查看编辑数据',
           url: '/base/cargoship/view',
           icon: 'fa fa-table'
         },
