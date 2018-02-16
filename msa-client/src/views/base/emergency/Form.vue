@@ -4,10 +4,10 @@
             <b-col cols="9">
                 <b-card :header="caption">
                     <slot name="form-title">
-                        <h4 class="alert-heading">添加项目</h4>
                     </slot>
                     <hr>
                     <b-form>
+                        <!-- https://cn.vuejs.org/v2/guide/components.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model -->
                         <b-form-group id="fd-1" label="项目编号" label-for="input-no">
                             <b-form-input id="input-no" type="text" placeholder="请输入项目编号" :disabled="noDisabled" :value="value.no">
                             </b-form-input>
@@ -103,6 +103,10 @@ export default {
     }
   },
   methods: {
+    updateValue(event) {
+      alert(event.target._value)
+      this.$emit('input', event.target._value)
+    },
     onSubmit() {
       //   alert('helloFromAddComponet')
       this.infoModal = true

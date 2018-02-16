@@ -67,6 +67,38 @@ router.get('/emergency/:number', function (req, res) {
   })
 })
 
+/**
+ * 更新emergency数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/emergency/update/:data', function (req, res) {
+  console.log('\nPOST传入的更新数据')
+  let updateItem = JSON.parse(req.params.data)
+  dbutil.emergency.updateOne(
+    { Number: updateItem.no },
+    {
+      capital: updateItem.capital,
+      ChineseName: updateItem.name,
+      extinguishing: updateItem.extinguishing,
+      oilfence: updateItem.oilfence,
+      PersonalProtection: updateItem.protection,
+      skinExposure: updateItem.skin,
+      eyeExposure: updateItem.eye,
+      inhalation: updateItem.inhalation,
+      ingestion: updateItem.ingestion
+    },
+    function (err, docs) {
+      if (err) {
+        logger.error(`更新出错-${err}-${updateItem.no}-${updateItem.name}`)
+        res.json({ info: '更新失败，请重试！' })
+      } else {
+        logger.info(`更新成功-${updateItem.no}-${updateItem.name}`)
+        res.json({ info: '更新成功' })
+      }
+    }
+  )
+})
+
 /* 向客户端响应数据库信息 */
 router.get('/db-info', function (req, res) {
   dbutil.dbInfo.find({}, { _id: 0 }, function (err, docs) {
