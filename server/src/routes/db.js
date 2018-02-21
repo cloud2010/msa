@@ -78,4 +78,9 @@ const dbutil = {
   dbInfo: mongoose.model('DBInfo', dbinfoSchema)
 }
 
-export default dbutil
+const Emergency = mongoose.model('Emergency', emergencySchema)
+const Cargoship = mongoose.model('Cargoship', cargoshipSchema)
+const LoginInfo = mongoose.model('LoginInfo', loginInfoSchema)
+const DBInfo = mongoose.model('DBInfo', dbinfoSchema)
+
+export {dbutil, Emergency, Cargoship, LoginInfo, DBInfo}

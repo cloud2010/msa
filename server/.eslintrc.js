@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'no-unreachable': 1,
     'no-unused-vars': 1,
+    'new-cap': 1,
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development

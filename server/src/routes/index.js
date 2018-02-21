@@ -1,7 +1,8 @@
 import { Router } from 'express'
 import fs from 'fs'
 // 数据库模型
-import dbutil from './db'
+// import dbutil from './db'
+import { dbutil, Emergency, DBInfo, Cargoship, LoginInfo } from './db'
 import { getLogger } from 'log4js'
 // 读取数据库信息
 // var vercheck = require("../data/verCheck.json");
@@ -68,13 +69,43 @@ router.get('/emergency/:number', function (req, res) {
 })
 
 /**
+ * 添加emergency数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/emergency/add/:data', function (req, res) {
+  console.log('\nPOST传入的添加数据')
+  let addItem = JSON.parse(req.params.data)
+  let newEmergency = new Emergency({
+    Number: addItem.no,
+    capital: addItem.capital,
+    ChineseName: addItem.name,
+    extinguishing: addItem.extinguishing,
+    oilfence: addItem.oilfence,
+    PersonalProtection: addItem.protection,
+    skinExposure: addItem.skin,
+    eyeExposure: addItem.eye,
+    inhalation: addItem.inhalation,
+    ingestion: addItem.ingestion
+  })
+  newEmergency.save(function (err, docs) {
+    if (err) {
+      logger.error(`添加出错-${err}-${addItem.no}-${addItem.name}`)
+      res.json({ info: '添加失败，请重试！' })
+    } else {
+      logger.info(`添加成功-${addItem.no}-${addItem.name}`)
+      res.json({ info: '添加成功' })
+    }
+  })
+})
+
+/**
  * 更新emergency数据库
  * POST方法，传入json文件格式
  */
 router.post('/emergency/update/:data', function (req, res) {
   console.log('\nPOST传入的更新数据')
   let updateItem = JSON.parse(req.params.data)
-  dbutil.emergency.updateOne(
+  dbutil.emergency.save(
     { Number: updateItem.no },
     {
       capital: updateItem.capital,
