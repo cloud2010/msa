@@ -32,25 +32,31 @@ router.get('/login-info', function (req, res) {
 router.get('/cargoship', function (req, res) {
   // find(Conditions,fields,callback);
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
-  dbutil.cargoship.find({}, { _id: 0 }, function (err, docs) {
-    if (err) {
-      logger.error(`查询出错${err}`)
-    } else {
-      // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
-      res.json(docs)
-    }
-  })
+  dbutil.cargoship
+    .find({}, { _id: 0 })
+    .sort({ proName: 'asc' })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询出错${err}`)
+      } else {
+        // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
+        res.json(docs)
+      }
+    })
 })
 
 /* 向客户端响应emergency数据库信息 */
 router.get('/emergency', function (req, res) {
-  dbutil.emergency.find({}, { _id: 0 }, function (err, docs) {
-    if (err) {
-      logger.error(`查询出错${err}`)
-    } else {
-      res.json(docs)
-    }
-  })
+  dbutil.emergency
+    .find({}, { _id: 0 })
+    .sort({ Number: 1 })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询出错${err}`)
+      } else {
+        res.json(docs)
+      }
+    })
 })
 
 /* 按条件查询emergency数据库信息 */
@@ -132,13 +138,16 @@ router.post('/emergency/update/:data', function (req, res) {
 
 /* 向客户端响应数据库信息 */
 router.get('/db-info', function (req, res) {
-  dbutil.dbInfo.find({}, { _id: 0 }, function (err, docs) {
-    if (err) {
-      logger.error(`查询出错${err}`)
-    } else {
-      res.json(docs)
-    }
-  })
+  dbutil.dbInfo
+    .find({}, { _id: 0 })
+    .sort({ Number: 1 })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询出错${err}`)
+      } else {
+        res.json(docs)
+      }
+    })
 })
 
 /* 向客户端响应数据库版本信息 */

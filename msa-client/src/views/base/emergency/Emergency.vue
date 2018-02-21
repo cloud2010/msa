@@ -2,10 +2,13 @@
   <div class="animated fadeIn">
     <b-card header-tag="header">
       <div slot="header">
-        <i class="fa fa-align-justify"></i> <strong>{{caption}}</strong>
+        <i class="fa fa-align-justify"></i>
+        <strong>{{caption}}</strong>
         <div class="card-actions">
           <!-- 命名路由 -->
-          <strong><b-link :to="{ name: 'emergencyAdd' }">添加</b-link></strong>
+          <strong>
+            <b-link :to="{ name: 'emergencyAdd' }">添加</b-link>
+          </strong>
         </div>
       </div>
       <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
@@ -21,7 +24,7 @@
           </b-button>
         </template>
         <template slot="del_details" slot-scope="row">
-          <b-button size="sm" class="mr-2" variant="danger">
+          <b-button size="sm" @click.stop="info(row.item, row.item.Number, $event.target)" class="mr-2" variant="danger">
             删除
           </b-button>
         </template>
@@ -91,6 +94,12 @@
         <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="前一页" next-text="后一页" hide-goto-end-buttons/>
       </nav>
     </b-card>
+    <!-- Info modal -->
+    <b-modal id="modalInfo" class="modal-danger" @hide="resetModal" :title="modalInfo.title" ok-title="确定" cancel-title="取消">
+      <p class="lead">{{ modalInfo.content }}</p>
+      <hr>
+      <p>提示：请尽量在做删除操作前备份数据库</p>
+    </b-modal>
   </div>
 </template>
 
@@ -136,12 +145,13 @@ export default {
       ],
       currentPage: 1,
       perPage: 15,
-      totalRows: 0
+      totalRows: 0,
+      modalInfo: { title: '', content: '' }
     }
   },
   methods: {
     // 向服务端请求cargoship数据
-    getEmergencyInfo () {
+    getEmergencyInfo() {
       // do something
       this.$http
         .get('/api/emergency')
@@ -156,8 +166,18 @@ export default {
     },
 
     // 读取元素个数用于分页
-    getRowCount (items) {
+    getRowCount(items) {
       return items.length
+    },
+    info(item, index, button) {
+      this.modalInfo.title = `删除项编号: ${index}`
+      // this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.modalInfo.content = '是否确定删除?'
+      this.$root.$emit('bv::show::modal', 'modalInfo', button)
+    },
+    resetModal() {
+      this.modalInfo.title = ''
+      this.modalInfo.content = ''
     }
   },
   /**
@@ -167,10 +187,10 @@ export default {
    * 经常导致 Uncaught TypeError: Cannot read property of undefined 或 Uncaught TypeError: this.myMethod is not a function 之类的错误。
    */
   // 钩子函数created期间读取数据
-  created () {
+  created() {
     this.getEmergencyInfo()
   },
-  mounted () {
+  mounted() {
     // do something
   }
 }
