@@ -74,6 +74,20 @@ router.get('/emergency/:number', function (req, res) {
   })
 })
 
+/* 按条件删除emergency数据库信息 */
+router.get('/emergency/del/:number', function (req, res) {
+  Emergency.remove({ Number: req.params.number }, function (err, docs) {
+    if (err) {
+      logger.error(`删除出错${err}`)
+      res.json({ info: err })
+    } else {
+      logger.info(req.path)
+      console.log(docs)
+      res.json({ info: '删除成功' })
+    }
+  })
+})
+
 /**
  * 添加emergency数据库
  * POST方法，传入json文件格式
@@ -111,7 +125,7 @@ router.post('/emergency/add/:data', function (req, res) {
 router.post('/emergency/update/:data', function (req, res) {
   console.log('\nPOST传入的更新数据')
   let updateItem = JSON.parse(req.params.data)
-  dbutil.emergency.save(
+  Emergency.updateOne(
     { Number: updateItem.no },
     {
       capital: updateItem.capital,

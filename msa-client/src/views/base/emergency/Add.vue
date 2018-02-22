@@ -95,9 +95,9 @@ export default {
       // 发送客户端添加请求
       this.addEmergencyItem(JSON.stringify(this.items))
       // 打开模态对话框
-      alert(JSON.stringify(this.items))
+      // alert(JSON.stringify(this.items))
       this.infoModal = true
-      // this.msg = '添加成功后的返回消息'
+      // 添加完成后处理
     },
     addEmergencyItem(item) {
       // 发送异步请求

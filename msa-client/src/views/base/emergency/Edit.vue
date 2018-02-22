@@ -105,7 +105,7 @@ export default {
           console.log(error)
         })
     },
-    // 向服务端请求cargoship数据
+    // 向服务端请求数据
     getEmergencyItem(id) {
       // do something
       this.$http
