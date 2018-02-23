@@ -55,7 +55,7 @@
       </b-col>
     </b-row>
     <!-- Modal Component -->
-    <b-modal title="提示" class="modal-primary" centered="true" ok-title="确定" cancel-title="取消" v-model="infoModal" @ok="infoModal = false">
+    <b-modal title="提示" class="modal-primary" centered="true" @ok="handleOk" ok-title="确定" cancel-title="取消" v-model="infoModal">
       <p>{{msg}}</p>
     </b-modal>
   </div>
@@ -127,6 +127,13 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    handleOk(evt) {
+      // Prevent modal from closing
+      evt.preventDefault()
+      this.infoModal = false
+      // 命名路由跳转
+      this.$router.push({ name: 'emergencyView' })
     }
   },
   created() {

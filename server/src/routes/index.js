@@ -93,7 +93,8 @@ router.get('/emergency/del/:number', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/emergency/add/:data', function (req, res) {
-  console.log('\nPOST传入的添加数据')
+  console.log('\n------POST传入的添加数据------\n')
+  console.log(JSON.parse(req.params.data))
   let addItem = JSON.parse(req.params.data)
   let newEmergency = new Emergency({
     Number: addItem.no,
@@ -123,7 +124,8 @@ router.post('/emergency/add/:data', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/emergency/update/:data', function (req, res) {
-  console.log('\nPOST传入的更新数据')
+  console.log('\n------POST传入的更新数据------\n')
+  console.log(JSON.parse(req.params.data))
   let updateItem = JSON.parse(req.params.data)
   Emergency.updateOne(
     { Number: updateItem.no },
