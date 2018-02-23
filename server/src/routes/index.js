@@ -2,7 +2,7 @@ import { Router } from 'express'
 import fs from 'fs'
 // 数据库模型
 // import dbutil from './db'
-import { dbutil, Emergency, DBInfo, Cargoship, LoginInfo } from './db'
+import { Emergency, DBInfo, Cargoship, LoginInfo } from './db'
 import { getLogger } from 'log4js'
 // 读取数据库信息
 // var vercheck = require("../data/verCheck.json");
@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 /* 向客户端响应Login数据库信息 */
 router.get('/login-info', function (req, res) {
-  dbutil.loginInfo.find({}, { _id: 0 }, function (err, docs) {
+  LoginInfo.find({}, {}, function (err, docs) {
     if (err) {
       // console.log('查询出错：' + err)
       logger.error(`查询出错${err}`)
@@ -32,23 +32,19 @@ router.get('/login-info', function (req, res) {
 router.get('/cargoship', function (req, res) {
   // find(Conditions,fields,callback);
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
-  dbutil.cargoship
-    .find({}, { _id: 0 })
-    .sort({ proName: 'asc' })
-    .exec(function (err, docs) {
-      if (err) {
-        logger.error(`查询出错${err}`)
-      } else {
-        // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
-        res.json(docs)
-      }
-    })
+  Cargoship.find({}, {}).exec(function (err, docs) {
+    if (err) {
+      logger.error(`查询出错${err}`)
+    } else {
+      // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
+      res.json(docs)
+    }
+  })
 })
 
 /* 向客户端响应emergency数据库信息 */
 router.get('/emergency', function (req, res) {
-  dbutil.emergency
-    .find({}, { _id: 0 })
+  Emergency.find({}, {})
     .sort({ Number: 1 })
     .exec(function (err, docs) {
       if (err) {
@@ -61,7 +57,7 @@ router.get('/emergency', function (req, res) {
 
 /* 按条件查询emergency数据库信息 */
 router.get('/emergency/:number', function (req, res) {
-  dbutil.emergency.findOne({ Number: req.params.number }, function (err, docs) {
+  Emergency.findOne({ Number: req.params.number }, function (err, docs) {
     if (err) {
       logger.error(`查询出错${err}`)
       res.json({ Error: err })
@@ -154,8 +150,7 @@ router.post('/emergency/update/:data', function (req, res) {
 
 /* 向客户端响应数据库信息 */
 router.get('/db-info', function (req, res) {
-  dbutil.dbInfo
-    .find({}, { _id: 0 })
+  DBInfo.find({}, {})
     .sort({ Number: 1 })
     .exec(function (err, docs) {
       if (err) {

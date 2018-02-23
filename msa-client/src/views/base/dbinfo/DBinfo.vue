@@ -211,7 +211,7 @@ export default {
     return {
       items: {},
       fields: [
-        { key: 'Number', label: '编号' },
+        { key: 'Number', label: '编号', sortable: true },
         { key: 'capital', label: '污染类别' },
         { key: 'Unnum', label: '联合国编号' },
         { key: 'ChineseName', label: '中文名' },
