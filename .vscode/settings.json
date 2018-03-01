@@ -4,11 +4,15 @@
   // Enable/disable default JavaScript formatter (For Prettier)
   "javascript.format.enable": false,
   // Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": false,
+  "eslint.validate": ["javascript", "html", "vue", "javascriptreact"],
   "prettier.eslintIntegration": true,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "vetur.format.defaultFormatter.html": "js-beautify-html",
   "vetur.format.defaultFormatter.js": "prettier",
   "editor.fontFamily": "Fira Code",
-  "terminal.integrated.fontSize": 12,
+  "editor.fontWeight": "500",
+  "editor.fontLigatures": true
 }
