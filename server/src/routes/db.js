@@ -4,7 +4,7 @@
 import mongoose from 'mongoose'
 import { getLogger } from 'log4js'
 const logger = getLogger('db')
-mongoose.connect('mongodb://localhost:27017/msa')
+mongoose.connect('mongodb://10.72.51.130:27017/msa')
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
