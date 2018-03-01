@@ -148,9 +148,16 @@
                         <b>化学品：</b>
                       </b-list-group-item>
                       <b-list-group-item>
-                        <b>IBC 特殊要求及操作要求</b>{{ row.item.specialRequest.Chemical.IBCspecialRequest }}</b-list-group-item>
+                        <b>IBC 特殊要求及操作要求</b>
+                      </b-list-group-item>
                       <b-list-group-item>
-                        <b></b>{{ row.item.specialRequest.Chemical.IBCspecialRequest }}</b-list-group-item>
+                        <div v-for="(i, index) in row.item.specialRequest.Chemical.IBCspecialRequest" :key="index">
+                          <p>
+                            <b>标题：</b>{{i.title}}</p>
+                          <p>
+                            <b>内容：</b>{{i.content}}</p>
+                        </div>
+                      </b-list-group-item>
                     </b-list-group>
                   </p>
                   <p>
@@ -159,9 +166,16 @@
                         <b>液化气：</b>
                       </b-list-group-item>
                       <b-list-group-item>
-                        <b>IBC 特殊要求及操作要求</b>{{ row.item.specialRequest.Liquidgas.IGCspecialRequest }}</b-list-group-item>
+                        <b>IBC 特殊要求及操作要求</b>
+                      </b-list-group-item>
                       <b-list-group-item>
-                        <b></b>{{ row.item.specialRequest.Liquidgas.IGCspecialRequest }}</b-list-group-item>
+                        <div v-for="(i, index) in row.item.specialRequest.Liquidgas.IGCspecialRequest" :key="index">
+                          <p>
+                            <b>标题：</b>{{i.title}}</p>
+                          <p>
+                            <b>内容：</b>{{i.content}}</p>
+                        </div>
+                      </b-list-group-item>
                     </b-list-group>
                   </p>
                 </b-col>
@@ -228,7 +242,7 @@ export default {
   },
   methods: {
     // 向服务端请求dbinfo数据
-    getDbInfo () {
+    getDbInfo() {
       // do something
       this.$http
         .get('/api/db-info')
@@ -243,15 +257,15 @@ export default {
     },
 
     // 读取元素个数用于分页
-    getRowCount (items) {
+    getRowCount(items) {
       return items.length
     }
   },
   // 钩子函数created期间读取数据
-  created () {
+  created() {
     this.getDbInfo()
   },
-  mounted () {
+  mounted() {
     // do something
   }
 }

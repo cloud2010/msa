@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import fs from 'fs'
+import path from 'path'
 // 数据库模型
 // import dbutil from './db'
 import { Emergency, DBInfo, Cargoship, LoginInfo } from './db'
@@ -169,31 +170,36 @@ router.get('/ver', function (req, res) {
       {
         name: 'loginInfo',
         timestamp: releaseDate,
-        url: 'http://47.96.21.222/login-info'
+        url: 'http://47.96.21.222/data/LoginInfo.json'
       },
       {
         name: 'cargoship',
         timestamp: releaseDate,
-        url: 'http://47.96.21.222/cargoship'
+        url: 'http://47.96.21.222/data/cargoship.json'
       },
       {
         name: 'emergency',
         timestamp: releaseDate,
-        url: 'http://47.96.21.222/emergency'
+        url: 'http://47.96.21.222/data/emergency.json'
       },
       {
         name: 'dbInfo',
         timestamp: releaseDate,
-        url: 'http://47.96.21.222/db-info'
+        url: 'http://47.96.21.222/data/DBInfo.json'
       }
     ]
   }
   // fs模块写入文件测试
-  fs.writeFile('./dist/ver.json', JSON.stringify(ver), 'utf-8', err => {
-    if (err) {
-      logger.error(`写入Json文件出错${err}`)
+  fs.writeFile(
+    path.join(__dirname, '../../public/data/verCheck.json'),
+    JSON.stringify(ver),
+    'utf-8',
+    err => {
+      if (err) {
+        logger.error(`写入JSON文件出错${err}`)
+      }
     }
-  })
+  )
   res.json(ver)
 })
 
