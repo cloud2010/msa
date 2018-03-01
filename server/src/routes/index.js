@@ -57,6 +57,83 @@ router.get('/cargoship/:id', function (req, res) {
   })
 })
 
+/* 按条件删除 cargoship 数据库信息 */
+router.get('/cargoship/del/:id', function (req, res) {
+  Cargoship.findByIdAndRemove(req.params.id, function (err, res) {
+    if (err) {
+      logger.error(`删除出错${err}`)
+      res.json({ info: err })
+    } else {
+      logger.info(req.path)
+      console.log(res)
+      res.json({ info: '删除成功' })
+    }
+  })
+})
+
+/**
+ * 添加 cargoship 数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/cargoship/add/:data', function (req, res) {
+  console.log('\n------POST传入的添加数据------\n')
+  console.log(JSON.parse(req.params.data))
+  let addItem = JSON.parse(req.params.data)
+  let newCargoship = new Cargoship({
+    proName: addItem.proName,
+    proTitle: addItem.proTitle,
+    part: addItem.part,
+    proContent: {
+      proTitle: addItem.proTitle,
+      checkPoint: addItem.proContent.checkPoint,
+      checkReason: addItem.proContent.checkReason,
+      weaknessItem: addItem.proContent.weaknessItem
+    }
+  })
+  newCargoship.save(function (err, docs) {
+    if (err) {
+      logger.error(`添加出错-${err}-${addItem.proName}`)
+      res.json({ info: '添加失败，请重试！' })
+    } else {
+      logger.info(`添加成功-${addItem.proName}`)
+      res.json({ info: '添加成功' })
+    }
+  })
+})
+
+/**
+ * 更新 cargoship 数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/cargoship/update/:data', function (req, res) {
+  console.log('\n------POST传入的更新数据------\n')
+  console.log(JSON.parse(req.params.data))
+  let updateItem = JSON.parse(req.params.data)
+  Cargoship.findByIdAndUpdate(
+    updateItem.id,
+    {
+      proName: updateItem.proName,
+      proTitle: updateItem.proTitle,
+      part: updateItem.part,
+      proContent: {
+        proTitle: updateItem.proTitle,
+        checkPoint: updateItem.proContent.checkPoint,
+        checkReason: updateItem.proContent.checkReason,
+        weaknessItem: updateItem.proContent.weaknessItem
+      }
+    },
+    function (err, docs) {
+      if (err) {
+        logger.error(`更新出错-${err}-${updateItem.id}-${updateItem.proName}`)
+        res.json({ info: '更新失败，请重试！' })
+      } else {
+        logger.info(`更新成功-${updateItem.id}-${updateItem.proName}`)
+        res.json({ info: '更新成功' })
+      }
+    }
+  )
+})
+
 /* 向客户端响应 emergency 数据库信息 */
 router.get('/emergency', function (req, res) {
   Emergency.find({}, {})

@@ -21,23 +21,25 @@
               </b-form-select>
             </b-form-group>
             <b-form-group id="fd-4" label="检查要点">
-              <b-form-input :ref="'fd-cp-' + index" v-for="(i, index) in items.proContent.checkPoint" :key="index" type="text" :value="i">
+              <b-form-input :ref="'fdCp' + index" v-for="(i, index) in items.proContent.checkPoint" :key="index" type="text" :value="i">
               </b-form-input>
             </b-form-group>
-            <label><b>检查依据</b></label>
-              <div v-for="(i, index) in items.proContent.checkReason" :key="index">
-                <b-form-group :label="'依据 ' + (index + 1)" :label-for="'fd-cr-reason-' + index">
-                  <b-form-input :ref="'fd-cr-reason-' + index" type="text" :value="i.reasonName">
-                  </b-form-input>
-                </b-form-group>
-                <b-form-group :label="'内容'" :label-for="'fd-cr-item-' + index">
-                <b-form-textarea :rows="3" :ref="'fd-cr-item-' + index" type="text" :value="i.item">
+            <label>
+              <b>检查依据</b>
+            </label>
+            <div v-for="(i, index) in items.proContent.checkReason" :key="index">
+              <b-form-group :label="'依据 ' + (index + 1)" :label-for="'fdCrReason' + index">
+                <b-form-input :ref="'fdCrReason' + index" type="text" :value="i.reasonName">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group :label="'内容'" :label-for="'fdCrItem' + index">
+                <b-form-textarea :rows="3" :ref="'fdCrItem' + index" type="text" :value="i.item">
                 </b-form-textarea>
-                </b-form-group>
-              </div>
-           
+              </b-form-group>
+            </div>
+
             <b-form-group id="fd-6" label="常见缺陷">
-              <b-form-input :ref="'fd-weak-' + index" v-for="(i, index) in items.proContent.weaknessItem" :key="index" type="text" :value="i">
+              <b-form-input :ref="'fdWeak' + index" v-for="(i, index) in items.proContent.weaknessItem" :key="index" type="text" :value="i">
               </b-form-input>
             </b-form-group>
             <b-button variant="primary" @click="updateItem">更新</b-button>
@@ -60,7 +62,6 @@ export default {
     return {
       captionTitle: '编辑数据',
       msg: '更新消息内容',
-      id: '0',
       infoModal: false,
       // 数据绑定 part 字段
       parts: [
@@ -71,6 +72,7 @@ export default {
         'partD'
       ],
       items: {
+        id: '0',
         proName: '',
         proTitle: '',
         part: '',
@@ -78,7 +80,10 @@ export default {
           checkPoint: [],
           checkReason: [],
           weaknessItem: []
-        }
+        },
+        cpLength: 0,
+        crLength: 0,
+        weakLength: 0
       }
     }
   },
@@ -87,8 +92,10 @@ export default {
     updateItem() {
       // 发送客户端更新请求
       // this.updateCargoshipItem(JSON.stringify(this.items))
+      alert(this.$refs.fdCrItem1)
+      //this.msg = JSON.stringify(this.items)
       // 打开模态对话框
-      this.infoModal = true
+      //this.infoModal = true
     },
     updateCargoshipItem(item) {
       // do something
@@ -109,14 +116,19 @@ export default {
       this.$http
         .get(`/api/cargoship/${id}`) // 模板字符串
         .then(response => {
-          // console.log(response)
           // 绑定数据
           this.items.proName = response.data.proName
           this.items.proTitle = response.data.proTitle
           this.items.part = response.data.part
           this.items.proContent.checkPoint = response.data.proContent.checkPoint
-          this.items.proContent.checkReason = response.data.proContent.checkReason
-          this.items.proContent.weaknessItem = response.data.proContent.weaknessItem
+          this.items.proContent.checkReason =
+            response.data.proContent.checkReason
+          this.items.proContent.weaknessItem =
+            response.data.proContent.weaknessItem
+          // 记录数组元素长度
+          this.items.cpLength = response.data.proContent.checkPoint.length
+          this.items.crLength = response.data.proContent.checkReason.length
+          this.items.weakLength = response.data.proContent.weaknessItem.length
         })
         .catch(error => {
           console.log(error)
@@ -131,9 +143,9 @@ export default {
     }
   },
   created() {
-    this.id = this.$route.params.cId
+    this.items.id = this.$route.params.cId
     // 获取修改数据
-    this.getCargoshipItem(this.id)
+    this.getCargoshipItem(this.items.id)
   }
 }
 </script>
