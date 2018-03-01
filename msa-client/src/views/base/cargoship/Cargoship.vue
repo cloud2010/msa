@@ -9,7 +9,7 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button :to="{ name: 'cargoshipEdit', params: { eId: row.item._id }}" size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'cargoshipEdit', params: { cId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
@@ -43,7 +43,7 @@
               </b-row>
               <b-row class="mb-2">
                 <b-col sm="1">
-                  <b>检查原因:</b>
+                  <b>检查依据:</b>
                 </b-col>
                 <b-col sm="11">
                   <div v-for="(i, index) in row.item.proContent.checkReason" :key="index">

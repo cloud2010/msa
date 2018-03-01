@@ -29,7 +29,7 @@ router.get('/login-info', function (req, res) {
   })
 })
 
-/* 向客户端响应cargoship数据库信息 */
+/* 向客户端响应 cargoship 数据库信息 */
 router.get('/cargoship', function (req, res) {
   // find(Conditions,fields,callback);
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
@@ -43,7 +43,21 @@ router.get('/cargoship', function (req, res) {
   })
 })
 
-/* 向客户端响应emergency数据库信息 */
+/* 按条件查询 cargoship 数据库信息 */
+router.get('/cargoship/:id', function (req, res) {
+  Cargoship.findById(req.params.id, function (err, docs) {
+    if (err) {
+      logger.error(`查询出错${err}`)
+      res.json({ Error: err })
+    } else {
+      logger.info(req.path)
+      console.log(docs)
+      res.json(docs)
+    }
+  })
+})
+
+/* 向客户端响应 emergency 数据库信息 */
 router.get('/emergency', function (req, res) {
   Emergency.find({}, {})
     .sort({ Number: 1 })
@@ -56,7 +70,7 @@ router.get('/emergency', function (req, res) {
     })
 })
 
-/* 按条件查询emergency数据库信息 */
+/* 按条件查询 emergency 数据库信息 */
 router.get('/emergency/:number', function (req, res) {
   Emergency.findOne({ Number: req.params.number }, function (err, docs) {
     if (err) {
@@ -71,7 +85,7 @@ router.get('/emergency/:number', function (req, res) {
   })
 })
 
-/* 按条件删除emergency数据库信息 */
+/* 按条件删除 emergency 数据库信息 */
 router.get('/emergency/del/:number', function (req, res) {
   Emergency.remove({ Number: req.params.number }, function (err, docs) {
     if (err) {
@@ -86,7 +100,7 @@ router.get('/emergency/del/:number', function (req, res) {
 })
 
 /**
- * 添加emergency数据库
+ * 添加 emergency 数据库
  * POST方法，传入json文件格式
  */
 router.post('/emergency/add/:data', function (req, res) {
@@ -117,7 +131,7 @@ router.post('/emergency/add/:data', function (req, res) {
 })
 
 /**
- * 更新emergency数据库
+ * 更新 emergency 数据库
  * POST方法，传入json文件格式
  */
 router.post('/emergency/update/:data', function (req, res) {
