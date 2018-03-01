@@ -1,15 +1,18 @@
 <template>
   <div class="animated fadeIn">
     <b-row>
-      <b-col cols="8">
+      <b-col cols="10">
         <b-card :header="caption">
           <b-alert show variant="primary">欢迎登陆监管支持系统！</b-alert>
           <b-row>
-            <b-col cols="6">
-              <b-button type="button" variant="primary" @click="publishModal = true">发布数据库</b-button>
-              <b-button type="button" variant="success" @click="backupModal = true">备份数据库</b-button>
+            <b-col cols="8">
+              <b-button type="button" variant="primary" @click="publishModal = true">发布危险货物数据库</b-button>
+              <b-button type="button" variant="primary" @click="publishModal = true">发布应急处置支持数据库</b-button>
+              <b-button type="button" variant="primary" @click="publishModal = true">发布液货船作业检查数据库</b-button>
+              <b-button type="button" variant="primary" @click="publishModal = true">发布用户数据库</b-button>
+              <b-button type="button" variant="success" @click="backupModal = true">备份全部数据库</b-button>
             </b-col>
-            <b-col cols="6">
+            <b-col cols="4">
               <small class="float-right mt-2"><b>当前时间：{{datetime}}</b></small>
             </b-col>
           </b-row>

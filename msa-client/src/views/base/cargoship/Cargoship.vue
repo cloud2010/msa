@@ -9,7 +9,7 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button :to="{ name: 'cargoshipEdit', params: { eId: row.item.proName }}" size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'cargoshipEdit', params: { eId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>

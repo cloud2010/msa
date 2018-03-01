@@ -4,17 +4,25 @@ import Router from 'vue-router'
 // Containers
 import Full from '@/containers/Full'
 
-// Views
+// Views - Dashboard
 import Dashboard from '@/views/Dashboard'
+
+// Views - User
 import Login from '@/views/users/Login'
 import Register from '@/views/users/Register'
 import Rbac from '@/views/users/Rbac'
+
+// Views - DBinfo
 import DBinfo from '@/views/base/dbinfo/DBinfo'
 import DBinfoEdit from '@/views/base/dbinfo/Edit'
 import DBinfoAdd from '@/views/base/dbinfo/Add'
+
+// Views - Cargoship
 import Cargoship from '@/views/base/cargoship/Cargoship'
 import CargoshipEdit from '@/views/base/cargoship/Edit'
 import CargoshipAdd from '@/views/base/cargoship/Add'
+
+// Views - Emergency
 import Emergency from '@/views/base/emergency/Emergency'
 import EmergencyEdit from '@/views/base/emergency/Edit'
 import EmergencyAdd from '@/views/base/emergency/Add'
