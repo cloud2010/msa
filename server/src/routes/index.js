@@ -240,7 +240,7 @@ router.post('/emergency/update/:data', function (req, res) {
   )
 })
 
-/* 向客户端响应数据库信息 */
+/* 向客户端响应 dbinfo 数据库信息 */
 router.get('/db-info', function (req, res) {
   DBInfo.find({}, {})
     .sort({ Number: 1 })
@@ -251,6 +251,87 @@ router.get('/db-info', function (req, res) {
         res.json(docs)
       }
     })
+})
+
+/* 按条件删除 dbinfo 数据库信息 */
+router.get('/db-info/del/:id', function (req, res) {
+  DBInfo.findByIdAndRemove(req.params.id, function (err, res) {
+    if (err) {
+      logger.error(`删除出错${err}`)
+      res.json({ info: err })
+    } else {
+      logger.info(req.path)
+      console.log(res)
+      res.json({ info: '删除成功' })
+    }
+  })
+})
+
+/**
+ * 添加 dbinfo 数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/db-info/add/:data', function (req, res) {
+  console.log('\n------POST传入的添加数据------\n')
+  console.log(JSON.parse(req.params.data))
+  let addItem = JSON.parse(req.params.data)
+  let newDBInfo = new DBInfo({
+    Number: addItem.Number,
+    capital: addItem.capital,
+    ChineseName: addItem.ChineseName,
+    classification: addItem.classification,
+    Unnum: addItem.Unnum,
+    basicInfo: addItem.basicInfo,
+    property: addItem.property,
+    jobRequirements: addItem.jobRequirements,
+    StructuralRequest: addItem.StructuralRequest,
+    EquipmentRequest: addItem.EquipmentRequest,
+    specialRequest: addItem.specialRequest
+  })
+  newDBInfo.save(function (err, docs) {
+    if (err) {
+      logger.error(`添加出错-${err}-${addItem.proName}`)
+      res.json({ info: '添加失败，请重试！' })
+    } else {
+      logger.info(`添加成功-${addItem.proName}`)
+      res.json({ info: '添加成功' })
+    }
+  })
+})
+
+/**
+ * 更新 dbinfo 数据库
+ * POST方法，传入json文件格式
+ */
+router.post('/db-info/update/:data', function (req, res) {
+  console.log('\n------POST传入的更新数据------\n')
+  console.log(JSON.parse(req.params.data))
+  let updateItem = JSON.parse(req.params.data)
+  DBInfo.findByIdAndUpdate(
+    updateItem.id,
+    {
+      Number: updateItem.Number,
+      capital: updateItem.capital,
+      ChineseName: updateItem.ChineseName,
+      classification: updateItem.classification,
+      Unnum: updateItem.Unnum,
+      basicInfo: updateItem.basicInfo,
+      property: updateItem.property,
+      jobRequirements: updateItem.jobRequirements,
+      StructuralRequest: updateItem.StructuralRequest,
+      EquipmentRequest: updateItem.EquipmentRequest,
+      specialRequest: updateItem.specialRequest
+    },
+    function (err, docs) {
+      if (err) {
+        logger.error(`更新出错-${err}-${updateItem.id}-${updateItem.Number}`)
+        res.json({ info: '更新失败，请重试！' })
+      } else {
+        logger.info(`更新成功-${updateItem.id}-${updateItem.Number}`)
+        res.json({ info: '更新成功' })
+      }
+    }
+  )
 })
 
 /* 向客户端响应数据库版本信息 */
