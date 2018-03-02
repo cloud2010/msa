@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <b-row>
-      <b-col cols="9">
+      <b-col cols="10">
         <b-card header="更新数据">
           <slot name="form-title">
             <h4>更新数据</h4>
@@ -20,30 +20,66 @@
               <b-form-select id="input-part" :options="parts" v-model="items.part">
               </b-form-select>
             </b-form-group>
-            <b-form-group id="fd-4" label="检查要点">
-              <b-form-input :ref="'fdCp' + index" v-for="(i, index) in items.proContent.checkPoint" :key="index" type="text" :value="i">
-              </b-form-input>
-            </b-form-group>
-            <label>
-              <b>检查依据</b>
-            </label>
-            <div v-for="(i, index) in items.proContent.checkReason" :key="index">
-              <b-form-group :label="'依据 ' + (index + 1)" :label-for="'fdCrReason' + index">
-                <b-form-input :ref="'fdCrReason' + index" type="text" :value="i.reasonName">
+            <label>检查要点</label>
+            <b-button @click.stop="addCp()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项检查要点
+            </b-button>
+            <b-table :items="items.proContent.checkPoint" :fields="fields.cp" :small="small" responsive="sm">
+              <!-- A custom column -->
+              <template slot="title" slot-scope="data">
+                <b-form-input id="input-cp-item" type="text" v-model="items.proContent.checkPoint[data.index]">
                 </b-form-input>
-              </b-form-group>
-              <b-form-group :label="'内容'" :label-for="'fdCrItem' + index">
-                <b-form-textarea :rows="3" :ref="'fdCrItem' + index" type="text" :value="i.item">
-                </b-form-textarea>
-              </b-form-group>
-            </div>
-
-            <b-form-group id="fd-6" label="常见缺陷">
-              <b-form-input :ref="'fdWeak' + index" v-for="(i, index) in items.proContent.weaknessItem" :key="index" type="text" :value="i">
-              </b-form-input>
-            </b-form-group>
+              </template>
+              <template slot="del_item" slot-scope="data">
+                <b-button @click.stop="deleteCp(data.index)" size="sm" variant="danger">
+                  删除
+                </b-button>
+              </template>
+            </b-table>
+            <label>检查依据</label>
+            <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项依据点
+            </b-button>
+            <b-table :items="items.proContent.checkReason" :fields="fields.cr" :small="small" responsive="sm">
+              <template slot="edit_details" slot-scope="row">
+                <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2" variant="primary">
+                  修改
+                </b-button>
+              </template>
+              <template slot="del_details" slot-scope="row">
+                <b-button @click.stop="info($event.target)" size="sm" class="mr-2" variant="danger">
+                  删除
+                </b-button>
+              </template>
+              <template slot="row-details" slot-scope="row">
+                <b-form-group horizontal label="依据点" label-for="input-cr-name">
+                  <b-form-input id="input-cr-name" type="text" v-model="row.item.reasonName">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group horizontal label="内容" label-for="input-cr-item">
+                  <b-form-textarea :rows="5" id="input-cr-item" type="text" v-model="row.item.item">
+                  </b-form-textarea>
+                </b-form-group>
+                <b-button size="sm" variant="primary" @click="row.toggleDetails">确定</b-button>
+              </template>
+            </b-table>
+            <label>常见缺陷</label>
+            <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项缺陷点
+            </b-button>
+            <b-table :items="items.proContent.weaknessItem" :fields="fields.weak" :small="small" responsive="sm">
+              <!-- A custom column -->
+              <template slot="title" slot-scope="data">
+                <b-form-input id="input-weak-item" type="text" v-model="items.proContent.weaknessItem[data.index]">
+                </b-form-input>
+              </template>
+              <template slot="del_item" slot-scope="data">
+                <b-button @click.stop="deleteWeak(data.index)" size="sm" variant="danger">
+                  删除
+                </b-button>
+              </template>
+            </b-table>
             <b-button variant="primary" @click="updateItem">更新</b-button>
-            <b-button type="reset" variant="danger">重置</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -62,6 +98,7 @@ export default {
     return {
       captionTitle: '编辑数据',
       msg: '更新消息内容',
+      small: true,
       infoModal: false,
       // 数据绑定 part 字段
       parts: [
@@ -71,6 +108,21 @@ export default {
         'partC',
         'partD'
       ],
+      fields: {
+        cp: [
+          { key: 'title', label: '要点' },
+          { key: 'del_item', label: '删除' }
+        ],
+        cr: [
+          { key: 'reasonName', label: '依据点' },
+          { key: 'edit_details', label: '编辑' },
+          { key: 'del_details', label: '删除' }
+        ],
+        weak: [
+          { key: 'title', label: '缺陷点' },
+          { key: 'del_item', label: '删除' }
+        ]
+      },
       items: {
         id: '0',
         proName: '',
@@ -92,7 +144,7 @@ export default {
     updateItem() {
       // 发送客户端更新请求
       // this.updateCargoshipItem(JSON.stringify(this.items))
-      alert(this.$refs.fdCrItem1)
+      alert(this.items.proContent.checkPoint)
       //this.msg = JSON.stringify(this.items)
       // 打开模态对话框
       //this.infoModal = true

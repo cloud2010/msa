@@ -9,7 +9,6 @@ mongoose.connect('mongodb://10.72.51.130:27017/msa')
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
-  // we're connected!
   // console.log('数据库msa连接成功')
   logger.info('数据库msa连接成功')
 })
@@ -63,9 +62,6 @@ const dbinfoSchema = new mongoose.Schema(
   },
   { collection: 'dbinfo' }
 )
-// const verCheckSchema = new mongoose.Schema({
-//   verCheck: { type: Array }
-// })
 
 /**
  * 导出表模型
