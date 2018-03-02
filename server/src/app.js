@@ -24,8 +24,8 @@ app.set('view engine', 'pug')
 // app.use(logger('dev'));
 // replace this with the log4js connect-logger
 app.use(connectLogger(getLogger('http'), { level: 'auto' }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../public')))
 

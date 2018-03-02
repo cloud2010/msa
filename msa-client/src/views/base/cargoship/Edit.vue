@@ -31,13 +31,13 @@
                 </b-form-input>
               </template>
               <template slot="del_item" slot-scope="data">
-                <b-button @click.stop="deleteCp(data.index)" size="sm" variant="danger">
+                <b-button @click.stop="delCp(data.index)" size="sm" variant="danger">
                   删除
                 </b-button>
               </template>
             </b-table>
             <label>检查依据</label>
-            <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
+            <b-button @click.stop="addCr()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项依据点
             </b-button>
             <b-table :items="items.proContent.checkReason" :fields="fields.cr" :small="small" responsive="sm">
@@ -47,7 +47,7 @@
                 </b-button>
               </template>
               <template slot="del_details" slot-scope="row">
-                <b-button @click.stop="info($event.target)" size="sm" class="mr-2" variant="danger">
+                <b-button @click.stop="delCr(row.index)" size="sm" class="mr-2" variant="danger">
                   删除
                 </b-button>
               </template>
@@ -74,7 +74,7 @@
                 </b-form-input>
               </template>
               <template slot="del_item" slot-scope="data">
-                <b-button @click.stop="deleteWeak(data.index)" size="sm" variant="danger">
+                <b-button @click.stop="delWeak(data.index)" size="sm" variant="danger">
                   删除
                 </b-button>
               </template>
@@ -132,27 +132,45 @@ export default {
           checkPoint: [],
           checkReason: [],
           weaknessItem: []
-        },
-        cpLength: 0,
-        crLength: 0,
-        weakLength: 0
+        }
       }
     }
   },
   methods: {
+    // 嵌入列表的添加删除及修改方法
+    addCp() {
+      this.items.proContent.checkPoint.push('请输入内容')
+    },
+    delCp(index) {
+      this.items.proContent.checkPoint.splice(index, 1)
+    },
+    addCr() {
+      this.items.proContent.checkReason.push({
+        reasonName: '请输入标题',
+        item: '请输入内容'
+      })
+    },
+    delCr(index) {
+      this.items.proContent.checkReason.splice(index, 1)
+    },
+    addWeak() {
+      this.items.proContent.weaknessItem.push('请输入内容')
+    },
+    delWeak(index) {
+      this.items.proContent.weaknessItem.splice(index, 1)
+    },
     // 组件自定义方法onSubmit覆写
     updateItem() {
       // 发送客户端更新请求
-      // this.updateCargoshipItem(JSON.stringify(this.items))
-      alert(this.items.proContent.checkPoint)
-      //this.msg = JSON.stringify(this.items)
+      this.updateCargoshipItem(this.items)
+      // this.msg = JSON.stringify(this.items)
       // 打开模态对话框
-      //this.infoModal = true
+      this.infoModal = true
     },
     updateCargoshipItem(item) {
       // do something
       this.$http
-        .post(`/api/cargoship/update/${item}`)
+        .post('/api/cargoship/update', item)
         .then(response => {
           console.log(response)
           // 绑定数据到提示框
@@ -177,10 +195,6 @@ export default {
             response.data.proContent.checkReason
           this.items.proContent.weaknessItem =
             response.data.proContent.weaknessItem
-          // 记录数组元素长度
-          this.items.cpLength = response.data.proContent.checkPoint.length
-          this.items.crLength = response.data.proContent.checkReason.length
-          this.items.weakLength = response.data.proContent.weaknessItem.length
         })
         .catch(error => {
           console.log(error)

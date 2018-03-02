@@ -50,8 +50,8 @@ router.get('/cargoship/:id', function (req, res) {
       logger.error(`查询出错${err}`)
       res.json({ Error: err })
     } else {
-      logger.info(req.path)
-      console.log(docs)
+      logger.info(`查询路径-${req.path}`)
+      // console.log(docs)
       res.json(docs)
     }
   })
@@ -76,7 +76,7 @@ router.get('/cargoship/del/:id', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/cargoship/add/:data', function (req, res) {
-  console.log('\n------POST传入的添加数据------\n')
+  console.log('\n------POST传入的 cargoship 添加数据------\n')
   console.log(JSON.parse(req.params.data))
   let addItem = JSON.parse(req.params.data)
   let newCargoship = new Cargoship({
@@ -105,10 +105,10 @@ router.post('/cargoship/add/:data', function (req, res) {
  * 更新 cargoship 数据库
  * POST方法，传入json文件格式
  */
-router.post('/cargoship/update/:data', function (req, res) {
-  console.log('\n------POST传入的更新数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let updateItem = JSON.parse(req.params.data)
+router.post('/cargoship/update', function (req, res) {
+  console.log('\n------POST传入的 cargoship 更新数据------\n')
+  console.log(req.body)
+  let updateItem = req.body
   Cargoship.findByIdAndUpdate(
     updateItem.id,
     {
@@ -124,8 +124,8 @@ router.post('/cargoship/update/:data', function (req, res) {
     },
     function (err, docs) {
       if (err) {
-        logger.error(`更新出错-${err}-${updateItem.id}-${updateItem.proName}`)
         res.json({ info: '更新失败，请重试！' })
+        logger.error(`更新出错-${err}-${updateItem.id}-${updateItem.proName}`)
       } else {
         logger.info(`更新成功-${updateItem.id}-${updateItem.proName}`)
         res.json({ info: '更新成功' })
@@ -181,7 +181,7 @@ router.get('/emergency/del/:number', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/emergency/add/:data', function (req, res) {
-  console.log('\n------POST传入的添加数据------\n')
+  console.log('\n------POST传入的 emergency 添加数据------\n')
   console.log(JSON.parse(req.params.data))
   let addItem = JSON.parse(req.params.data)
   let newEmergency = new Emergency({
@@ -212,7 +212,7 @@ router.post('/emergency/add/:data', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/emergency/update/:data', function (req, res) {
-  console.log('\n------POST传入的更新数据------\n')
+  console.log('\n------POST传入的 emergency 更新数据------\n')
   console.log(JSON.parse(req.params.data))
   let updateItem = JSON.parse(req.params.data)
   Emergency.updateOne(
@@ -272,7 +272,7 @@ router.get('/db-info/del/:id', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/db-info/add/:data', function (req, res) {
-  console.log('\n------POST传入的添加数据------\n')
+  console.log('\n------POST传入的 dbinfo 添加数据------\n')
   console.log(JSON.parse(req.params.data))
   let addItem = JSON.parse(req.params.data)
   let newDBInfo = new DBInfo({
@@ -304,7 +304,7 @@ router.post('/db-info/add/:data', function (req, res) {
  * POST方法，传入json文件格式
  */
 router.post('/db-info/update/:data', function (req, res) {
-  console.log('\n------POST传入的更新数据------\n')
+  console.log('\n------POST传入的 dbinfo 更新数据------\n')
   console.log(JSON.parse(req.params.data))
   let updateItem = JSON.parse(req.params.data)
   DBInfo.findByIdAndUpdate(
