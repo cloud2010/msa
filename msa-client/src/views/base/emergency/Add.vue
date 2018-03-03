@@ -91,7 +91,8 @@ export default {
       // 打开模态对话框
       // alert(JSON.stringify(this.items))
       this.infoModal = true
-      // 添加完成后处理
+      // 添加完成后命名路由跳转
+      this.$router.push({ name: 'emergencyView' })
     },
     addEmergencyItem(item) {
       // 发送异步请求

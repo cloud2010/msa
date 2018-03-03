@@ -8,47 +8,78 @@
           </slot>
           <hr>
           <!-- 提交按钮方法绑定 -->
-          <b-form @submit="addItem">
-            <b-form-group id="fd-1" label="项目编号" description="请输入数字编号" label-for="input-no">
-              <b-form-input id="input-no" type="text" placeholder="请输入项目编号" required="true" v-model="items.no">
+          <b-form @submit.prevent="addItem">
+            <b-form-group id="fd-1" label="项目名称" label-for="input-proName">
+              <b-form-input id="input-proName" type="text" placeholder="请输入项目名称" required v-model="items.proName">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
-              <b-form-input id="input-capital" type="text" placeholder="请输入污染类别" required="true" v-model="items.capital">
+            <b-form-group id="fd-2" label="项目标题" label-for="input-proTitle">
+              <b-form-input id="input-proTitle" type="text" placeholder="请输入项目标题" required v-model="items.proTitle">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-3" label="中文名" label-for="input-name">
-              <b-form-input id="input-name" type="text" placeholder="请输入中文名" required="true" v-model="items.name">
-              </b-form-input>
+            <b-form-group id="fd-3" label="部分" label-for="input-part">
+              <b-form-select id="input-part" required :options="parts" v-model="items.part">
+              </b-form-select>
             </b-form-group>
-            <b-form-group id="fd-4" label="灭火方法" label-for="input-extinguishing">
-              <b-form-textarea :rows="3" id="input-extinguishing" type="text" placeholder="请输入" v-model="items.extinguishing">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-5" label="围油栏布设" label-for="input-oilfence">
-              <b-form-textarea :rows="3" id="input-oilfence" type="text" placeholder="请输入" v-model="items.oilfence">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-6" label="应急处置人员个人防护" label-for="input-protection">
-              <b-form-textarea :rows="3" id="input-protection" type="text" placeholder="请输入" v-model="items.protection">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-7" label="急救-皮肤接触" label-for="input-skin">
-              <b-form-textarea :rows="3" id="input-skin" type="text" placeholder="请输入" v-model="items.skin">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-8" label="急救-眼睛接触" label-for="input-eye">
-              <b-form-textarea :rows="3" id="input-eye" type="text" placeholder="请输入" v-model="items.eye">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-9" label="急救-吸入" label-for="input-inhalation">
-              <b-form-textarea :rows="3" id="input-inhalation" type="text" placeholder="请输入" v-model="items.inhalation">
-              </b-form-textarea>
-            </b-form-group>
-            <b-form-group id="fd-10" label="急救-食入" label-for="input-ingestion">
-              <b-form-textarea :rows="3" id="input-ingestion" type="text" placeholder="请输入" v-model="items.ingestion">
-              </b-form-textarea>
-            </b-form-group>
+            <label>检查要点</label>
+            <b-button @click.stop="addCp()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项检查要点
+            </b-button>
+            <b-table :items="items.proContent.checkPoint" :fields="fields.cp" :small="small" responsive="sm">
+              <!-- A custom column -->
+              <template slot="title" slot-scope="data">
+                <b-form-input id="input-cp-item" type="text" v-model="items.proContent.checkPoint[data.index]">
+                </b-form-input>
+              </template>
+              <template slot="del_item" slot-scope="data">
+                <b-button @click.stop="delCp(data.index)" size="sm" variant="danger">
+                  删除
+                </b-button>
+              </template>
+            </b-table>
+            <label>检查依据</label>
+            <b-button @click.stop="addCr()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项依据点
+            </b-button>
+            <b-table :items="items.proContent.checkReason" :fields="fields.cr" :small="small" responsive="sm">
+              <template slot="edit_details" slot-scope="row">
+                <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2" variant="primary">
+                  详细填写
+                </b-button>
+              </template>
+              <template slot="del_details" slot-scope="row">
+                <b-button @click.stop="delCr(row.index)" size="sm" class="mr-2" variant="danger">
+                  删除
+                </b-button>
+              </template>
+              <template slot="row-details" slot-scope="row">
+                <b-form-group horizontal label="依据点" label-for="input-cr-name">
+                  <b-form-input id="input-cr-name" type="text" v-model="row.item.reasonName">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group horizontal label="内容" label-for="input-cr-item">
+                  <b-form-textarea :rows="5" id="input-cr-item" type="text" v-model="row.item.item">
+                  </b-form-textarea>
+                </b-form-group>
+                <b-button size="sm" variant="primary" @click="row.toggleDetails">确定</b-button>
+              </template>
+            </b-table>
+            <label>常见缺陷</label>
+            <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
+              添加一项缺陷点
+            </b-button>
+            <b-table :items="items.proContent.weaknessItem" :fields="fields.weak" :small="small" responsive="sm">
+              <!-- A custom column -->
+              <template slot="title" slot-scope="data">
+                <b-form-input id="input-weak-item" type="text" v-model="items.proContent.weaknessItem[data.index]">
+                </b-form-input>
+              </template>
+              <template slot="del_item" slot-scope="data">
+                <b-button @click.stop="delWeak(data.index)" size="sm" variant="danger">
+                  删除
+                </b-button>
+              </template>
+            </b-table>
             <b-button type="submit" variant="primary">添加</b-button>
             <b-button type="reset" variant="danger">重置</b-button>
           </b-form>
@@ -68,40 +99,88 @@ export default {
   data: () => {
     return {
       msg: '添加消息内容',
-      id: '0',
+      parts: [
+        { text: '请选择', value: null },
+        'partA',
+        'partB',
+        'partC',
+        'partD'
+      ],
+      fields: {
+        cp: [
+          { key: 'title', label: '要点' },
+          { key: 'del_item', label: '删除' }
+        ],
+        cr: [
+          { key: 'reasonName', label: '依据点' },
+          { key: 'edit_details', label: '编辑' },
+          { key: 'del_details', label: '删除' }
+        ],
+        weak: [
+          { key: 'title', label: '缺陷点' },
+          { key: 'del_item', label: '删除' }
+        ]
+      },
       items: {
-        no: '',
-        capital: '',
-        name: '',
-        extinguishing: '',
-        oilfence: '',
-        protection: '',
-        skin: '',
-        eye: '',
-        inhalation: '',
-        ingestion: ''
+        proName: '',
+        proTitle: '',
+        part: null,
+        proContent: {
+          checkPoint: ['请输入检查要点'],
+          checkReason: [
+            {
+              reasonName: '请输入标题',
+              item: '请输入内容'
+            }
+          ],
+          weaknessItem: ['请输入常见缺陷']
+        }
       }
     }
   },
   methods: {
+    // 嵌入列表的添加删除及修改方法
+    addCp() {
+      this.items.proContent.checkPoint.push('请输入检查要点')
+    },
+    delCp(index) {
+      this.items.proContent.checkPoint.splice(index, 1)
+    },
+    addCr() {
+      this.items.proContent.checkReason.push({
+        reasonName: '请输入标题',
+        item: '请输入内容'
+      })
+    },
+    delCr(index) {
+      this.items.proContent.checkReason.splice(index, 1)
+    },
+    addWeak() {
+      this.items.proContent.weaknessItem.push('请输入常见缺陷')
+    },
+    delWeak(index) {
+      this.items.proContent.weaknessItem.splice(index, 1)
+    },
     // 覆写提交事件
     addItem(evt) {
       evt.preventDefault()
       // 发送客户端添加请求
-      this.addEmergencyItem(JSON.stringify(this.items))
-      // 打开模态对话框
+      this.addEmergencyItem(this.items)
+      // 打开添加完成后信息反馈对话框
       // alert(JSON.stringify(this.items))
-      this.infoModal = true
-      // 添加完成后处理
+      // this.infoModal = true
+      // 添加完成后命名路由跳转
+      this.$router.push({ name: 'cargoshipView' })
     },
     addEmergencyItem(item) {
       // 发送异步请求
       this.$http
-        .post(`/api/cargoship/add/${item}`)
+        .post('/api/cargoship/add', item)
         .then(response => {
           console.log(response)
           // 绑定数据到提示框
           this.msg = response.data.info
+          alert(this.msg)
         })
         .catch(error => {
           console.log(error)

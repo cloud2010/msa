@@ -59,13 +59,13 @@ router.get('/cargoship/:id', function (req, res) {
 
 /* 按条件删除 cargoship 数据库信息 */
 router.get('/cargoship/del/:id', function (req, res) {
-  Cargoship.findByIdAndRemove(req.params.id, function (err, res) {
+  Cargoship.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
       logger.error(`删除出错${err}`)
       res.json({ info: err })
     } else {
-      logger.info(req.path)
-      console.log(res)
+      logger.info(`删除成功${req.path}`)
+      // console.log(res)
       res.json({ info: '删除成功' })
     }
   })
@@ -169,8 +169,8 @@ router.get('/emergency/del/:id', function (req, res) {
       logger.error(`删除出错${err}`)
       res.json({ info: err })
     } else {
-      logger.info(req.path)
-      console.log(docs)
+      logger.info(`删除成功${req.path}`)
+      // console.log(docs)
       res.json({ info: '删除成功' })
     }
   })
