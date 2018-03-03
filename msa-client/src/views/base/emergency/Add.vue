@@ -17,10 +17,6 @@
               <b-form-input id="input-capital" type="text" placeholder="请输入污染类别" required="true" v-model="items.capital">
               </b-form-input>
             </b-form-group>
-            <!-- <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
-              <b-form-select id="input-capital" :options="capitals" required v-model="items.capital">
-              </b-form-select>
-            </b-form-group> -->
             <b-form-group id="fd-3" label="中文名" label-for="input-name">
               <b-form-input id="input-name" type="text" placeholder="请输入中文名" required="true" v-model="items.name">
               </b-form-input>
@@ -72,8 +68,6 @@ export default {
   data: () => {
     return {
       msg: '添加消息内容',
-      id: '0',
-      // capitals: [{ text: '请选择', value: null }, 'A', 'B', 'C', 'D','E','F','H','J',''],
       items: {
         no: '',
         capital: '',
@@ -93,7 +87,7 @@ export default {
     addItem(evt) {
       evt.preventDefault()
       // 发送客户端添加请求
-      this.addEmergencyItem(JSON.stringify(this.items))
+      this.addEmergencyItem(this.items)
       // 打开模态对话框
       // alert(JSON.stringify(this.items))
       this.infoModal = true
@@ -102,7 +96,7 @@ export default {
     addEmergencyItem(item) {
       // 发送异步请求
       this.$http
-        .post(`/api/emergency/add/${item}`)
+        .post('/api/emergency/add', item)
         .then(response => {
           console.log(response)
           // 绑定数据到提示框

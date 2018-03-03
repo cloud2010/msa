@@ -75,10 +75,10 @@ router.get('/cargoship/del/:id', function (req, res) {
  * 添加 cargoship 数据库
  * POST方法，传入json文件格式
  */
-router.post('/cargoship/add/:data', function (req, res) {
+router.post('/cargoship/add', function (req, res) {
   console.log('\n------POST传入的 cargoship 添加数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let addItem = JSON.parse(req.params.data)
+  console.log(req.body)
+  let addItem = req.body
   let newCargoship = new Cargoship({
     proName: addItem.proName,
     proTitle: addItem.proTitle,
@@ -148,8 +148,8 @@ router.get('/emergency', function (req, res) {
 })
 
 /* 按条件查询 emergency 数据库信息 */
-router.get('/emergency/:number', function (req, res) {
-  Emergency.findOne({ Number: req.params.number }, function (err, docs) {
+router.get('/emergency/:id', function (req, res) {
+  Emergency.findById(req.params.id, function (err, docs) {
     if (err) {
       logger.error(`查询出错${err}`)
       res.json({ Error: err })
@@ -163,8 +163,8 @@ router.get('/emergency/:number', function (req, res) {
 })
 
 /* 按条件删除 emergency 数据库信息 */
-router.get('/emergency/del/:number', function (req, res) {
-  Emergency.remove({ Number: req.params.number }, function (err, docs) {
+router.get('/emergency/del/:id', function (req, res) {
+  Emergency.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
       logger.error(`删除出错${err}`)
       res.json({ info: err })
@@ -180,10 +180,10 @@ router.get('/emergency/del/:number', function (req, res) {
  * 添加 emergency 数据库
  * POST方法，传入json文件格式
  */
-router.post('/emergency/add/:data', function (req, res) {
+router.post('/emergency/add', function (req, res) {
   console.log('\n------POST传入的 emergency 添加数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let addItem = JSON.parse(req.params.data)
+  console.log(req.body)
+  let addItem = req.body
   let newEmergency = new Emergency({
     Number: addItem.no,
     capital: addItem.capital,
@@ -211,12 +211,12 @@ router.post('/emergency/add/:data', function (req, res) {
  * 更新 emergency 数据库
  * POST方法，传入json文件格式
  */
-router.post('/emergency/update/:data', function (req, res) {
+router.post('/emergency/update', function (req, res) {
   console.log('\n------POST传入的 emergency 更新数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let updateItem = JSON.parse(req.params.data)
-  Emergency.updateOne(
-    { Number: updateItem.no },
+  console.log(req.body)
+  let updateItem = req.body
+  Emergency.findByIdAndUpdate(
+    updateItem.id,
     {
       capital: updateItem.capital,
       ChineseName: updateItem.name,
@@ -230,10 +230,10 @@ router.post('/emergency/update/:data', function (req, res) {
     },
     function (err, docs) {
       if (err) {
-        logger.error(`更新出错-${err}-${updateItem.no}-${updateItem.name}`)
+        logger.error(`更新出错-${err}-${updateItem.id}-${updateItem.name}`)
         res.json({ info: '更新失败，请重试！' })
       } else {
-        logger.info(`更新成功-${updateItem.no}-${updateItem.name}`)
+        logger.info(`更新成功-${updateItem.id}-${updateItem.name}`)
         res.json({ info: '更新成功' })
       }
     }

@@ -19,12 +19,12 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button :to="{ name: 'emergencyEdit', params: { eId: row.item.Number }}" size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'emergencyEdit', params: { eId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
         <template slot="del_details" slot-scope="row">
-          <b-button size="sm" @click.stop="info(row.item, row.item.Number, $event.target)" class="mr-2" variant="danger">
+          <b-button size="sm" @click.stop="info(row.item, row.item._id, $event.target)" class="mr-2" variant="danger">
             删除
           </b-button>
         </template>
@@ -184,7 +184,7 @@ export default {
     // 弹出删除确认框
     info(item, index, button) {
       this.modalInfo.id = index
-      this.modalInfo.title = `删除项编号: ${index}`
+      this.modalInfo.title = `删除项编号: ${item.Number}`
       // this.modalInfo.content = JSON.stringify(item, null, 2)
       this.modalInfo.content = '是否确定删除?'
       this.$root.$emit('bv::show::modal', 'modalInfo', button)

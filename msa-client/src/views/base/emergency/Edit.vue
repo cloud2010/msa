@@ -68,9 +68,9 @@ export default {
     return {
       captionTitle: '编辑数据',
       msg: '更新消息内容',
-      id: '0',
       infoModal: false,
       items: {
+        id: '0',
         no: '',
         capital: '',
         name: '',
@@ -88,14 +88,14 @@ export default {
     // 组件自定义方法onSubmit覆写
     updateItem() {
       // 发送客户端更新请求
-      this.updateEmergencyItem(JSON.stringify(this.items))
+      this.updateEmergencyItem(this.items)
       // 打开模态对话框
       this.infoModal = true
     },
     updateEmergencyItem(item) {
       // do something
       this.$http
-        .post(`/api/emergency/update/${item}`)
+        .post('/api/emergency/update', item)
         .then(response => {
           console.log(response)
           // 绑定数据到提示框
@@ -137,9 +137,9 @@ export default {
     }
   },
   created() {
-    this.id = this.$route.params.eId
+    this.items.id = this.$route.params.eId
     // 获取修改数据
-    this.getEmergencyItem(this.id)
+    this.getEmergencyItem(this.items.id)
   }
 }
 </script>
