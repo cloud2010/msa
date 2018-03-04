@@ -8,9 +8,9 @@ import Full from '@/containers/Full'
 import Dashboard from '@/views/Dashboard'
 
 // Views - User
-import Login from '@/views/users/Login'
-import Register from '@/views/users/Register'
-import Rbac from '@/views/users/Rbac'
+import LoginInfo from '@/views/base/userinfo/LoginInfo'
+import UserEdit from '@/views/base/userinfo/Edit'
+import UserAdd from '@/views/base/userinfo/Add'
 
 // Views - DBinfo
 import DBinfo from '@/views/base/dbinfo/DBinfo'
@@ -109,6 +109,7 @@ export default new Router({
             },
             {
               path: 'cargoship',
+              redirect: 'cargoship/view',
               name: 'Cargoship',
               meta: {
                 label: '液货船作业检查'
@@ -188,7 +189,7 @@ export default new Router({
         },
         {
           path: '/users',
-          redirect: '/users/Login',
+          redirect: '/users/view',
           name: 'Users',
           meta: {
             label: '用户管理'
@@ -200,28 +201,28 @@ export default new Router({
           },
           children: [
             {
-              path: 'login',
-              name: 'Login',
+              path: 'view',
+              name: 'userView',
               meta: {
-                label: '登陆管理'
+                label: '用户查看'
               },
-              component: Login
+              component: LoginInfo
             },
             {
-              path: 'register',
-              name: 'Register',
+              path: 'edit/:uId',
+              name: 'userEdit',
               meta: {
-                label: '注册管理'
+                label: '用户编辑'
               },
-              component: Register
+              component: UserEdit
             },
             {
-              path: 'rbac',
-              name: 'Rbac',
+              path: 'add',
+              name: 'userAdd',
               meta: {
-                label: '权限管理'
+                label: '用户添加'
               },
-              component: Rbac
+              component: UserAdd
             }
           ]
         },

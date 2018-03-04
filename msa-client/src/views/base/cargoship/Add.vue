@@ -165,14 +165,14 @@ export default {
     addItem(evt) {
       evt.preventDefault()
       // 发送客户端添加请求
-      this.addEmergencyItem(this.items)
+      this.addCargoshipItem(this.items)
       // 打开添加完成后信息反馈对话框
       // alert(JSON.stringify(this.items))
       // this.infoModal = true
       // 添加完成后命名路由跳转
       this.$router.push({ name: 'cargoshipView' })
     },
-    addEmergencyItem(item) {
+    addCargoshipItem(item) {
       // 发送异步请求
       this.$http
         .post('/api/cargoship/add', item)

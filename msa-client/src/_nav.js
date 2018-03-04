@@ -79,19 +79,14 @@ export default {
       icon: 'fa fa-users',
       children: [
         {
-          name: '登录管理',
-          url: '/users/rbac',
+          name: '用户管理',
+          url: '/users/view',
           icon: 'fa fa-sign-in'
         },
         {
-          name: '注册管理',
-          url: '/users/rbac',
+          name: '用户添加',
+          url: '/users/add',
           icon: 'fa fa-user-plus'
-        },
-        {
-          name: '权限管理',
-          url: '/users/rbac',
-          icon: 'fa fa-cog'
         }
       ]
     }
