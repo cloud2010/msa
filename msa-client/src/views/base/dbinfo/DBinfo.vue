@@ -19,12 +19,12 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'dbinfoEdit', params: { cId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
         <template slot="del_details" slot-scope="row">
-          <b-button size="sm" class="mr-2" variant="danger">
+          <b-button @click.stop="info(row.item.ChineseName, row.item._id, $event.target)" size="sm" class="mr-2" variant="danger">
             删除
           </b-button>
         </template>
@@ -199,6 +199,12 @@
         <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="前一页" next-text="后一页" hide-goto-end-buttons/>
       </nav>
     </b-card>
+    <!-- Info modal -->
+    <b-modal id="modalInfo" ref="modal" class="modal-danger" @ok="handleDel" @hide="resetModal" :title="modalInfo.title" ok-title="确定" ok-variant="danger" cancel-title="取消">
+      <p class="lead">{{ modalInfo.content }}</p>
+      <hr>
+      <p>提示：请尽量在做删除操作前备份数据库</p>
+    </b-modal>
   </div>
 </template>
 
@@ -247,7 +253,8 @@ export default {
       ],
       currentPage: 1,
       perPage: 15,
-      totalRows: 0
+      totalRows: 0,
+      modalInfo: { id: 0, title: '', content: '' }
     }
   },
   methods: {
@@ -265,10 +272,44 @@ export default {
           console.log(error)
         })
     },
-
+    // 向服务端请求删除指定数据
+    delDbinfoItem(id) {
+      // do something
+      this.$http
+        .get(`/api/db-info/del/${id}`)
+        .then(response => {
+          // 反馈响应数据
+          alert(response.data.info)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     // 读取元素个数用于分页
     getRowCount(items) {
       return items.length
+    },
+    // 弹出删除确认框
+    info(item, index, button) {
+      this.modalInfo.id = index
+      this.modalInfo.title = `删除项编号: ${item}`
+      this.modalInfo.content = '是否确定删除?'
+      this.$root.$emit('bv::show::modal', 'modalInfo', button)
+    },
+    // 确认删除
+    handleDel(evt) {
+      // Prevent modal from closing
+      evt.preventDefault()
+      // alert(`${this.modalInfo.id} 删除成功`)
+      this.delDbinfoItem(this.modalInfo.id)
+      this.$refs.modal.hide()
+      // 刷新页面重新绑定表格数据
+      this.getDbInfo()
+    },
+    resetModal() {
+      this.modalInfo.id = 0
+      this.modalInfo.title = ''
+      this.modalInfo.content = ''
     }
   },
   // 钩子函数created期间读取数据
