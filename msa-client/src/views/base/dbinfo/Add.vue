@@ -9,7 +9,7 @@
           <hr>
           <!-- 提交按钮方法绑定 -->
           <b-form @submit.prevent="addItem">
-            
+          </b-form>
         </b-card>
       </b-col>
     </b-row>
