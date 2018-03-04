@@ -20,6 +20,7 @@
               <b-form-select id="input-part" :options="parts" v-model="items.part">
               </b-form-select>
             </b-form-group>
+            <hr>
             <label>检查要点</label>
             <b-button @click.stop="addCp()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项检查要点
@@ -36,6 +37,7 @@
                 </b-button>
               </template>
             </b-table>
+            <hr>
             <label>检查依据</label>
             <b-button @click.stop="addCr()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项依据点
@@ -43,7 +45,7 @@
             <b-table :items="items.proContent.checkReason" :fields="fields.cr" :small="small" responsive="sm">
               <template slot="edit_details" slot-scope="row">
                 <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2" variant="primary">
-                  修改
+                  详细修改
                 </b-button>
               </template>
               <template slot="del_details" slot-scope="row">
@@ -63,6 +65,7 @@
                 <b-button size="sm" variant="primary" @click="row.toggleDetails">确定</b-button>
               </template>
             </b-table>
+            <hr>
             <label>常见缺陷</label>
             <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项缺陷点

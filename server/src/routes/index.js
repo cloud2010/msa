@@ -253,15 +253,30 @@ router.get('/db-info', function (req, res) {
     })
 })
 
+/* 按条件查询 dbinfo 数据库信息 */
+router.get('/db-info/:id', function (req, res) {
+  DBInfo.findById(req.params.id, function (err, docs) {
+    if (err) {
+      logger.error(`查询出错${err}`)
+      res.json({ Error: err })
+    } else {
+      // console.log(req.params.number)
+      logger.info(req.path)
+      console.log(docs)
+      res.json(docs)
+    }
+  })
+})
+
 /* 按条件删除 dbinfo 数据库信息 */
 router.get('/db-info/del/:id', function (req, res) {
-  DBInfo.findByIdAndRemove(req.params.id, function (err, res) {
+  DBInfo.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
       logger.error(`删除出错${err}`)
       res.json({ info: err })
     } else {
       logger.info(req.path)
-      console.log(res)
+      // console.log(docs)
       res.json({ info: '删除成功' })
     }
   })
@@ -271,10 +286,10 @@ router.get('/db-info/del/:id', function (req, res) {
  * 添加 dbinfo 数据库
  * POST方法，传入json文件格式
  */
-router.post('/db-info/add/:data', function (req, res) {
+router.post('/db-info/add/', function (req, res) {
   console.log('\n------POST传入的 dbinfo 添加数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let addItem = JSON.parse(req.params.data)
+  console.log(req.body)
+  let addItem = req.body
   let newDBInfo = new DBInfo({
     Number: addItem.Number,
     capital: addItem.capital,
@@ -290,10 +305,10 @@ router.post('/db-info/add/:data', function (req, res) {
   })
   newDBInfo.save(function (err, docs) {
     if (err) {
-      logger.error(`添加出错-${err}-${addItem.proName}`)
+      logger.error(`添加出错-${err}-${addItem.Number}`)
       res.json({ info: '添加失败，请重试！' })
     } else {
-      logger.info(`添加成功-${addItem.proName}`)
+      logger.info(`添加成功-${addItem.Number}`)
       res.json({ info: '添加成功' })
     }
   })
@@ -303,10 +318,10 @@ router.post('/db-info/add/:data', function (req, res) {
  * 更新 dbinfo 数据库
  * POST方法，传入json文件格式
  */
-router.post('/db-info/update/:data', function (req, res) {
+router.post('/db-info/update', function (req, res) {
   console.log('\n------POST传入的 dbinfo 更新数据------\n')
-  console.log(JSON.parse(req.params.data))
-  let updateItem = JSON.parse(req.params.data)
+  console.log(req.body)
+  let updateItem = req.body
   DBInfo.findByIdAndUpdate(
     updateItem.id,
     {

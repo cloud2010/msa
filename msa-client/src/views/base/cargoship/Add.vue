@@ -21,6 +21,7 @@
               <b-form-select id="input-part" required :options="parts" v-model="items.part">
               </b-form-select>
             </b-form-group>
+            <hr>
             <label>检查要点</label>
             <b-button @click.stop="addCp()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项检查要点
@@ -37,6 +38,7 @@
                 </b-button>
               </template>
             </b-table>
+            <hr>
             <label>检查依据</label>
             <b-button @click.stop="addCr()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项依据点
@@ -64,6 +66,7 @@
                 <b-button size="sm" variant="primary" @click="row.toggleDetails">确定</b-button>
               </template>
             </b-table>
+            <hr>
             <label>常见缺陷</label>
             <b-button @click.stop="addWeak()" size="sm" variant="success" class="mb-1 ml-1">
               添加一项缺陷点

@@ -19,12 +19,12 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button :to="{ name: 'dbinfoEdit', params: { cId: row.item._id }}" size="sm" class="mr-2" variant="success">
+          <b-button :to="{ name: 'dbinfoEdit', params: { dId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
         <template slot="del_details" slot-scope="row">
-          <b-button @click.stop="info(row.item.ChineseName, row.item._id, $event.target)" size="sm" class="mr-2" variant="danger">
+          <b-button @click.stop="info(row.item.Number, row.item._id, $event.target)" size="sm" class="mr-2" variant="danger">
             删除
           </b-button>
         </template>
@@ -246,7 +246,7 @@ export default {
         { key: 'Unnum', label: '联合国编号' },
         { key: 'ChineseName', label: '中文名' },
         { key: 'classification', label: '分类' },
-        { key: 'ChineseName', label: '项目归属' },
+        // { key: 'ChineseName', label: '项目归属' },
         { key: 'show_details', label: '详细内容' },
         { key: 'edit_details', label: '修改' },
         { key: 'del_details', label: '删除' }

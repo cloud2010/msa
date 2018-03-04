@@ -10,7 +10,7 @@
           <!-- 提交按钮方法绑定 -->
           <b-form @submit="addItem">
             <b-form-group id="fd-1" label="项目编号" description="请输入数字编号" label-for="input-no">
-              <b-form-input id="input-no" type="text" placeholder="请输入项目编号" required="true" v-model="items.no">
+              <b-form-input id="input-no" type="number" placeholder="请输入项目编号" required="true" v-model="items.no">
               </b-form-input>
             </b-form-group>
             <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
