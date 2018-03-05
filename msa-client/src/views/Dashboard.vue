@@ -47,7 +47,7 @@
     <b-modal title="发布数据库" class="modal-primary" centered="true" ok-title="发布" cancel-title="取消" v-model="publishEModal" @ok="publish('emergency', $event.target)">
       <p>{{publishEInfo}}</p>
     </b-modal>
-    <b-modal title="备份数据库" class="modal-success" centered="true" ok-title="发布" cancel-title="取消" v-model="backupModal" @ok="backupModal = false" ok-variant="success">
+    <b-modal title="备份数据库" class="modal-success" centered="true" ok-title="备份" cancel-title="取消" v-model="backupModal" @ok="backupModal = false" ok-variant="success">
       <p>{{backupInfo}}</p>
     </b-modal>
   </div>
@@ -74,8 +74,7 @@ export default {
       publishDInfo: '是否发布危险货物数据库？',
       publishLInfo: '是否发布用户数据库？',
       publishEInfo: '是否发布应急处置支持数据库？',
-      backupInfo: '是否备份全部数据库？',
-      datetime: new Date().toString()
+      backupInfo: '是否备份全部数据库？'
     }
   },
   methods: {
@@ -111,11 +110,12 @@ export default {
     },
     // 发布对应数据库
     publish(dbname, button) {
-      alert(dbname)
+      // alert(dbname)
       this.$http
         .get(`/api/export/publish/${dbname}`)
         .then(response => {
-          alert(response)
+          alert(response.data.info)
+          this.getDatabaseInfo()
         })
         .catch(error => {
           alert(error)
