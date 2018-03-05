@@ -102,6 +102,7 @@ export default {
           console.log(response)
           // 绑定数据到提示框
           this.msg = response.data.info
+          alert(this.msg)
         })
         .catch(error => {
           console.log(error)
