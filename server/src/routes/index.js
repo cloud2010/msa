@@ -1,12 +1,7 @@
 import { Router } from 'express'
-import fs from 'fs'
-import path from 'path'
-// 数据库模型
-// import dbutil from './db'
 import { Emergency, DBInfo, Cargoship, LoginInfo } from './db'
 import { getLogger } from 'log4js'
-// 读取数据库信息
-// var vercheck = require("../data/verCheck.json");
+
 const router = Router()
 const logger = getLogger('CRUD')
 /* GET home page. */
@@ -22,7 +17,7 @@ router.get('/login-info', function (req, res) {
   LoginInfo.find({}, {}, function (err, docs) {
     if (err) {
       // console.log('查询出错：' + err)
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
     } else {
       res.json(docs)
     }
@@ -33,7 +28,7 @@ router.get('/login-info', function (req, res) {
 router.get('/login-info/:id', function (req, res) {
   LoginInfo.findById(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
       res.json({ Error: err })
     } else {
       logger.info(`查询路径-${req.path}`)
@@ -47,10 +42,10 @@ router.get('/login-info/:id', function (req, res) {
 router.get('/login-info/del/:id', function (req, res) {
   LoginInfo.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`删除出错${err}`)
+      logger.error(`删除出错-${err}`)
       res.json({ info: err })
     } else {
-      logger.info(`删除成功${req.path}`)
+      logger.info(`删除成功-${req.path}`)
       // console.log(res)
       res.json({ info: '删除成功' })
     }
@@ -114,7 +109,7 @@ router.get('/cargoship', function (req, res) {
   // 省略或为空，返回所有记录；只包含cargoshipInfo字段，去掉默认的_id字段；执行回调函数
   Cargoship.find({}, {}).exec(function (err, docs) {
     if (err) {
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
     } else {
       // logger.info('查询结果：' + docs[0].cargoshipInfo.length)
       res.json(docs)
@@ -126,7 +121,7 @@ router.get('/cargoship', function (req, res) {
 router.get('/cargoship/:id', function (req, res) {
   Cargoship.findById(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
       res.json({ Error: err })
     } else {
       logger.info(`查询路径-${req.path}`)
@@ -140,10 +135,10 @@ router.get('/cargoship/:id', function (req, res) {
 router.get('/cargoship/del/:id', function (req, res) {
   Cargoship.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`删除出错${err}`)
+      logger.error(`删除出错-${err}`)
       res.json({ info: err })
     } else {
-      logger.info(`删除成功${req.path}`)
+      logger.info(`删除成功-${req.path}`)
       // console.log(res)
       res.json({ info: '删除成功' })
     }
@@ -219,7 +214,7 @@ router.get('/emergency', function (req, res) {
     .sort({ Number: 1 })
     .exec(function (err, docs) {
       if (err) {
-        logger.error(`查询出错${err}`)
+        logger.error(`查询出错-${err}`)
       } else {
         res.json(docs)
       }
@@ -230,7 +225,7 @@ router.get('/emergency', function (req, res) {
 router.get('/emergency/:id', function (req, res) {
   Emergency.findById(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
       res.json({ Error: err })
     } else {
       // console.log(req.params.number)
@@ -245,10 +240,10 @@ router.get('/emergency/:id', function (req, res) {
 router.get('/emergency/del/:id', function (req, res) {
   Emergency.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`删除出错${err}`)
+      logger.error(`删除出错-${err}`)
       res.json({ info: err })
     } else {
-      logger.info(`删除成功${req.path}`)
+      logger.info(`删除成功-${req.path}`)
       // console.log(docs)
       res.json({ info: '删除成功' })
     }
@@ -325,7 +320,7 @@ router.get('/db-info', function (req, res) {
     .sort({ Number: 1 })
     .exec(function (err, docs) {
       if (err) {
-        logger.error(`查询出错${err}`)
+        logger.error(`查询出错-${err}`)
       } else {
         res.json(docs)
       }
@@ -336,7 +331,7 @@ router.get('/db-info', function (req, res) {
 router.get('/db-info/:id', function (req, res) {
   DBInfo.findById(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`查询出错${err}`)
+      logger.error(`查询出错-${err}`)
       res.json({ Error: err })
     } else {
       // console.log(req.params.number)
@@ -351,7 +346,7 @@ router.get('/db-info/:id', function (req, res) {
 router.get('/db-info/del/:id', function (req, res) {
   DBInfo.findByIdAndRemove(req.params.id, function (err, docs) {
     if (err) {
-      logger.error(`删除出错${err}`)
+      logger.error(`删除出错-${err}`)
       res.json({ info: err })
     } else {
       logger.info(req.path)
@@ -426,47 +421,6 @@ router.post('/db-info/update', function (req, res) {
       }
     }
   )
-})
-
-/* 向客户端响应数据库版本信息 */
-router.get('/ver', function (req, res) {
-  var releaseDate = Date.now()
-  var ver = {
-    verCheck: [
-      {
-        name: 'loginInfo',
-        timestamp: releaseDate,
-        url: 'http://47.96.21.222/data/LoginInfo.json'
-      },
-      {
-        name: 'cargoship',
-        timestamp: releaseDate,
-        url: 'http://47.96.21.222/data/cargoship.json'
-      },
-      {
-        name: 'emergency',
-        timestamp: releaseDate,
-        url: 'http://47.96.21.222/data/emergency.json'
-      },
-      {
-        name: 'dbInfo',
-        timestamp: releaseDate,
-        url: 'http://47.96.21.222/data/DBInfo.json'
-      }
-    ]
-  }
-  // fs模块写入文件测试
-  fs.writeFile(
-    path.join(__dirname, '../../public/data/verCheck.json'),
-    JSON.stringify(ver),
-    'utf-8',
-    err => {
-      if (err) {
-        logger.error(`写入JSON文件出错${err}`)
-      }
-    }
-  )
-  res.json(ver)
 })
 
 export default router

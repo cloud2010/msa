@@ -6,6 +6,7 @@ import { configure, getLogger, connectLogger } from 'log4js'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import index from './routes/index'
+import exporter from './routes/exporter'
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/', index)
+app.use('/export', exporter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

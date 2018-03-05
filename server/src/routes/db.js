@@ -14,6 +14,15 @@ db.once('open', function () {
 })
 
 // 构建表模式
+const verCheckSchema = new mongoose.Schema(
+  {
+    name: { type: String },
+    timestamp: { type: Number },
+    url: { type: String }
+  },
+  { collection: 'verCheck' }
+)
+
 const cargoshipSchema = new mongoose.Schema(
   {
     proName: { type: String },
@@ -71,12 +80,14 @@ const dbutil = {
   cargoship: mongoose.model('Cargoship', cargoshipSchema),
   emergency: mongoose.model('Emergency', emergencySchema),
   loginInfo: mongoose.model('LoginInfo', loginInfoSchema),
-  dbInfo: mongoose.model('DBInfo', dbinfoSchema)
+  dbInfo: mongoose.model('DBInfo', dbinfoSchema),
+  verCheck: mongoose.model('VerCheck', verCheckSchema)
 }
 
 const Emergency = mongoose.model('Emergency', emergencySchema)
 const Cargoship = mongoose.model('Cargoship', cargoshipSchema)
 const LoginInfo = mongoose.model('LoginInfo', loginInfoSchema)
 const DBInfo = mongoose.model('DBInfo', dbinfoSchema)
+const VerCheck = mongoose.model('VerCheck', verCheckSchema)
 
-export {dbutil, Emergency, Cargoship, LoginInfo, DBInfo}
+export { dbutil, Emergency, Cargoship, LoginInfo, DBInfo, VerCheck }
