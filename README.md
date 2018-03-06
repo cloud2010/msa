@@ -6,7 +6,7 @@
 
 ## 前端实现
 
-主要技术：`vue-cli + vue + CoreUI-Vue + Bootstrap-Vue + axios + babel + sass + eslint`
+主要技术：`vue 2.5 + vue-router + webpack 3.10 + axios + babel + sass + eslint + CoreUI-Vue + Bootstrap-Vue`
 
 基于 [CoreUI](https://github.com/mrholek/CoreUI-Vue) 提供的后台管理 UI 进行二次开发
 
@@ -23,8 +23,15 @@
 
 语法升级为 ES6,搭配 eslint 和 prettier 完成代码风格检查和 autofix
 
-部分参考（更新中...）：
+主要参考：
 
 1. [https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/](https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/)
 2. [https://github.com/openyun/express-babel-es6](https://github.com/openyun/express-babel-es6)
 3. [https://github.com/vmasto/express-babel](https://github.com/vmasto/express-babel)
+
+## 生产环境部署注意事项
+
+1. 利用[cross-env](https://www.npmjs.com/package/cross-env)设置`NODE_ENV`为`production`
+2. 结合`babel`完成 Server-end 的编译，利用[nodemon](https://github.com/remy/nodemon)启动Web服务
+3. `Express`中间件设定静态目录 `app.use(express.static(path.join(__dirname, '../public')))`
+4. `Webpack`编译好的 Front-end 文件存放到`Express`的静态目录，完成前后端的整合
