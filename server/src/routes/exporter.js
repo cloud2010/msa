@@ -73,6 +73,8 @@ router.get('/publish/:name', function (req, res) {
             // 更新 verCheck 数据并导出数据库为 json 文件
             updateVer('dbInfo', gTime)
             writeDb('DBInfo.json', wData)
+            // 导出整体库
+            exportVer('verCheck.json')
             res.json({ info: 'DBInfo.json 数据库发布成功' })
           }
         })
@@ -94,6 +96,8 @@ router.get('/publish/:name', function (req, res) {
             // 更新 verCheck 数据并导出数据库为 json 文件
             updateVer('emergency', gTime)
             writeDb('emergency.json', wData)
+            // 导出整体库
+            exportVer('verCheck.json')
             res.json({ info: 'emergency.json 数据库发布成功' })
           }
         })
@@ -115,6 +119,8 @@ router.get('/publish/:name', function (req, res) {
             // 更新 verCheck 数据并导出数据库为 json 文件
             updateVer('cargoship', gTime)
             writeDb('cargoship.json', wData)
+            // 导出整体库
+            exportVer('verCheck.json')
             res.json({ info: 'cargoship.json 数据库发布成功' })
           }
         })
@@ -136,6 +142,8 @@ router.get('/publish/:name', function (req, res) {
             // 更新 verCheck 数据并导出数据库为 json 文件
             updateVer('loginInfo', gTime)
             writeDb('LoginInfo.json', wData)
+            // 导出整体库
+            exportVer('verCheck.json')
             res.json({ info: 'LoginInfo.json 数据库发布成功' })
           }
         })
@@ -145,28 +153,38 @@ router.get('/publish/:name', function (req, res) {
 
 /* 向客户端响应数据库版本信息 */
 router.get('/ver', function (req, res) {
+  let dbVer = exportVer('verCheck.json')
+  if (dbVer === 0) {
+    console.log(dbVer)
+    res.json({ info: '数据库导出成功' })
+  } else {
+    res.json({ info: '数据库导出失败' })
+  }
+})
+
+const exportVer = jsonName => {
   VerCheck.find({}, {}).exec(function (err, docs) {
     if (err) {
       logger.error(`版本查询出错-${err}`)
-      res.json({ info: '版本查询失败' })
+      return -1
     } else {
       logger.info(`版本查询成功`)
       let ver = { verCheck: docs }
       // fs模块写入文件测试
       fs.writeFile(
-        path.join(__dirname, '../../public/data/verCheck.json'),
+        path.join(__dirname, `../../public/data/${jsonName}`),
         JSON.stringify(ver),
         'utf-8',
         err => {
           if (err) {
             logger.error(`写入JSON文件出错-${err}`)
-            res.json({ info: `写入JSON文件出错-${err}` })
+            return -1
           }
         }
       )
-      res.json(ver)
     }
   })
-})
+  return 0
+}
 
 export default router
