@@ -53,7 +53,7 @@ export default new Router({
           name: 'Dashboard',
           component: Dashboard,
           meta: {
-            label: '控制台'
+            label: '发布数据库'
           }
         },
         {

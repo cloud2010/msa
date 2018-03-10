@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: '控制台',
+      name: '发布数据库',
       url: '/dashboard',
       icon: 'icon-speedometer',
       badge: {

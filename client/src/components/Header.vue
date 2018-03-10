@@ -9,7 +9,18 @@
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" @click="sidebarToggle">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <b-navbar-nav class="d-md-down-none mr-auto">
+    <b-navbar-nav class="d-md-down-none ml-auto">
+      <b-nav-item-dropdown right>
+        <!-- Using button-content slot -->
+        <template slot="button-content">
+          <i class="fa fa-user mr-2"></i>用户
+        </template>
+        <b-dropdown-header tag="div" class="text-center">
+          <strong>基本信息</strong>
+        </b-dropdown-header>
+        <b-dropdown-item href="#">修改密码</b-dropdown-item>
+        <b-dropdown-item href="#">退出</b-dropdown-item>
+      </b-nav-item-dropdown>
       <b-nav-item class="px-3">APP下载</b-nav-item>
       <b-nav-item class="px-3">帮助文档</b-nav-item>
     </b-navbar-nav>
@@ -19,15 +30,15 @@
 export default {
   name: 'c-header',
   methods: {
-    sidebarToggle (e) {
+    sidebarToggle(e) {
       e.preventDefault()
       document.body.classList.toggle('sidebar-hidden')
     },
-    sidebarMinimize (e) {
+    sidebarMinimize(e) {
       e.preventDefault()
       document.body.classList.toggle('sidebar-minimized')
     },
-    mobileSidebarToggle (e) {
+    mobileSidebarToggle(e) {
       e.preventDefault()
       document.body.classList.toggle('sidebar-mobile-show')
     }

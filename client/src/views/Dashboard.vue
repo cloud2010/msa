@@ -10,25 +10,40 @@
               <b-alert show variant="success">危险货物数据库版本：{{items.dVer}}</b-alert>
             </b-col>
             <b-col cols="6">
-              <b-alert show variant="success">应急处置支持数据库版本：{{items.eVer}}</b-alert>
+              <b-button type="button" size="lg" variant="primary" @click="publishDModal = true">发布危险货物数据库</b-button>
             </b-col>
           </b-row>
+          <hr>
+          <b-row>
+            <b-col cols="6">
+              <b-alert show variant="success">应急处置支持数据库版本：{{items.eVer}}</b-alert>
+            </b-col>
+            <b-col cols="6">
+              <b-button type="button" size="lg" variant="primary" @click="publishEModal = true">发布应急处置支持数据库</b-button>
+            </b-col>
+          </b-row>
+          <hr>
           <b-row>
             <b-col cols="6">
               <b-alert show variant="success">液货船作业检查数据库版本：{{items.cVer}}</b-alert>
             </b-col>
             <b-col cols="6">
+              <b-button type="button" size="lg" variant="primary" @click="publishCModal = true">发布液货船作业检查数据库</b-button>
+            </b-col>
+          </b-row>
+          <hr>
+          <b-row>
+            <b-col cols="6">
               <b-alert show variant="success">用户数据库版本：{{items.lVer}}</b-alert>
+            </b-col>
+            <b-col cols="6">
+              <b-button type="button" size="lg" variant="primary" @click="publishLModal = true">发布用户数据库</b-button>
             </b-col>
           </b-row>
           <hr>
           <b-row>
             <b-col cols="8">
-              <b-button type="button" variant="primary" @click="publishDModal = true">发布危险货物数据库</b-button>
-              <b-button type="button" variant="primary" @click="publishEModal = true">发布应急处置支持数据库</b-button>
-              <b-button type="button" variant="primary" @click="publishCModal = true">发布液货船作业检查数据库</b-button>
-              <b-button type="button" variant="primary" @click="publishLModal = true">发布用户数据库</b-button>
-              <b-button type="button" variant="success" @click="backupModal = true">备份全部数据库</b-button>
+              <!-- <b-button type="button" variant="success" @click="backupModal = true">备份全部数据库</b-button> -->
             </b-col>
           </b-row>
         </b-card>
@@ -64,7 +79,7 @@ export default {
         dVer: '',
         lVer: ''
       },
-      caption: '控制台',
+      caption: '发布数据库',
       publishCModal: false,
       publishDModal: false,
       publishLModal: false,
