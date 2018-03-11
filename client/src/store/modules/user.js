@@ -25,13 +25,14 @@ const user = {
   },
 
   actions: {
-    // 登录
+    // 登录提交
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.data
           setToken(data.token)
+          // 调用对应的 mutations
           commit('SET_TOKEN', data.token)
           resolve()
         }).catch(error => {

@@ -43,6 +43,14 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        label: '系统登录'
+      }
+    },
+    {
       path: '/',
       redirect: '/dashboard',
       name: 'Home',

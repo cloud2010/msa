@@ -3,14 +3,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from './router'
-import store from './store'
+// import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 // 挂载Vue ajax组件为第三方模块axios
 import axios from 'axios'
 Vue.prototype.$http = axios
 // 挂载RBAC权限管理模块
-import '@/rbac'
+// import '@/rbac'
 
 Vue.use(BootstrapVue)
 // 引入状态管理模块
@@ -20,7 +20,7 @@ Vue.use(Vuex)
 new Vue({
   el: '#app',
   router,
-  store,
+  // store,
   components: {
     App
   },
