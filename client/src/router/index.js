@@ -28,9 +28,9 @@ import EmergencyEdit from '@/views/base/emergency/Edit'
 import EmergencyAdd from '@/views/base/emergency/Add'
 
 // Views - Notifications
-import Alerts from '@/views/notifications/Alerts'
-import Badges from '@/views/notifications/Badges'
-import Modals from '@/views/notifications/Modals'
+// import Alerts from '@/views/notifications/Alerts'
+// import Badges from '@/views/notifications/Badges'
+// import Modals from '@/views/notifications/Modals'
 
 Vue.use(Router)
 
@@ -64,7 +64,7 @@ export default new Router({
             label: '数据维护'
           },
           component: {
-            render (c) {
+            render(c) {
               return c('router-view')
             }
           },
@@ -76,7 +76,7 @@ export default new Router({
                 label: '危险货物'
               },
               component: {
-                render (c) {
+                render(c) {
                   return c('router-view')
                 }
               },
@@ -115,7 +115,7 @@ export default new Router({
                 label: '液货船作业检查'
               },
               component: {
-                render (c) {
+                render(c) {
                   return c('router-view')
                 }
               },
@@ -154,7 +154,7 @@ export default new Router({
                 label: '应急处置支持'
               },
               component: {
-                render (c) {
+                render(c) {
                   return c('router-view')
                 }
               },
@@ -195,7 +195,7 @@ export default new Router({
             label: '用户管理'
           },
           component: {
-            render (c) {
+            render(c) {
               return c('router-view')
             }
           },
@@ -225,34 +225,34 @@ export default new Router({
               component: UserAdd
             }
           ]
-        },
-        {
-          path: 'notifications',
-          redirect: '/notifications/alerts',
-          name: 'Notifications',
-          component: {
-            render (c) {
-              return c('router-view')
-            }
-          },
-          children: [
-            {
-              path: 'alerts',
-              name: 'Alerts',
-              component: Alerts
-            },
-            {
-              path: 'badges',
-              name: 'Badges',
-              component: Badges
-            },
-            {
-              path: 'modals',
-              name: 'Modals',
-              component: Modals
-            }
-          ]
         }
+        // {
+        //   path: 'notifications',
+        //   redirect: '/notifications/alerts',
+        //   name: 'Notifications',
+        //   component: {
+        //     render (c) {
+        //       return c('router-view')
+        //     }
+        //   },
+        //   children: [
+        //     {
+        //       path: 'alerts',
+        //       name: 'Alerts',
+        //       component: Alerts
+        //     },
+        //     {
+        //       path: 'badges',
+        //       name: 'Badges',
+        //       component: Badges
+        //     },
+        //     {
+        //       path: 'modals',
+        //       name: 'Modals',
+        //       component: Modals
+        //     }
+        //   ]
+        // }
       ]
     }
   ]
