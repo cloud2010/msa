@@ -14,6 +14,8 @@
 
 1. [https://github.com/mrholek/CoreUI-Vue](https://github.com/mrholek/CoreUI-Vue)
 2. [https://github.com/bootstrap-vue/bootstrap-vue](https://github.com/bootstrap-vue/bootstrap-vue)
+3. [https://github.com/mgbq/vue-permission](https://github.com/mgbq/vue-permission)
+4. [https://segmentfault.com/a/1190000009506097](https://segmentfault.com/a/1190000009506097)
 
 ## 后端实现
 
@@ -28,6 +30,7 @@
 1. [https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/](https://egoist.moe/2017/12/11/write-better-code-with-eslint-and-prettier/)
 2. [https://github.com/openyun/express-babel-es6](https://github.com/openyun/express-babel-es6)
 3. [https://github.com/vmasto/express-babel](https://github.com/vmasto/express-babel)
+4. [http://www.cnblogs.com/zhongweiv/p/mongoose.html](http://www.cnblogs.com/zhongweiv/p/mongoose.html)
 
 ## 生产环境部署注意事项
 
