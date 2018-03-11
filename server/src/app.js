@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import index from './routes/index'
 import exporter from './routes/exporter'
+import users from './routes/users'
 
 const app = express()
 
@@ -34,6 +35,7 @@ app.disable('x-powered-by')
 
 app.use('/', index)
 app.use('/export', exporter)
+app.use('/users', users)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

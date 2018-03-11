@@ -71,6 +71,15 @@ const dbinfoSchema = new mongoose.Schema(
   },
   { collection: 'dbinfo' }
 )
+const usersSchema = new mongoose.Schema(
+  {
+    account: { type: String },
+    password: { type: String },
+    name: { type: String },
+    roles: { type: Object }
+  },
+  { collection: 'users' }
+)
 
 /**
  * 导出表模型
@@ -81,7 +90,8 @@ const dbutil = {
   emergency: mongoose.model('Emergency', emergencySchema),
   loginInfo: mongoose.model('LoginInfo', loginInfoSchema),
   dbInfo: mongoose.model('DBInfo', dbinfoSchema),
-  verCheck: mongoose.model('VerCheck', verCheckSchema)
+  verCheck: mongoose.model('VerCheck', verCheckSchema),
+  Users: mongoose.model('Users', usersSchema)
 }
 
 const Emergency = mongoose.model('Emergency', emergencySchema)
@@ -89,5 +99,6 @@ const Cargoship = mongoose.model('Cargoship', cargoshipSchema)
 const LoginInfo = mongoose.model('LoginInfo', loginInfoSchema)
 const DBInfo = mongoose.model('DBInfo', dbinfoSchema)
 const VerCheck = mongoose.model('VerCheck', verCheckSchema)
+const Users = mongoose.model('Users', usersSchema)
 
-export { dbutil, Emergency, Cargoship, LoginInfo, DBInfo, VerCheck }
+export { dbutil, Emergency, Cargoship, LoginInfo, DBInfo, VerCheck, Users }

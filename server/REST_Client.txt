@@ -1,0 +1,7 @@
+POST http://localhost:80/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "account": "admin",
+    "password": "welcome"
+}
