@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/cloud2010/msa.svg?branch=master)](https://travis-ci.org/cloud2010/msa)
 
-前端基于 Vue，后端基于 Nodejs + Express + [Mongoose](http://mongoosejs.com)
+前端基于 Vue，后端基于 Nodejs + Express + Mongoose
 
 ## 前端实现
 
-主要技术：`vue 2.5 + vue-router + webpack 3.10 + axios + babel + sass + eslint + CoreUI-Vue + Bootstrap-Vue`
+主要技术：`vue 2.5 + vue-router 3 + vuex 3 + webpack 3 + axios + babel + sass + eslint + js-cookie + CoreUI-Vue + Bootstrap-Vue`
 
 基于 [CoreUI](https://github.com/mrholek/CoreUI-Vue) 提供的后台管理 UI 进行二次开发
 

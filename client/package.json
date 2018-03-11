@@ -1,5 +1,5 @@
 {
-  "name": "@msa/coreu",
+  "name": "msa-crud",
   "version": "1.0.0",
   "description": "MSA DB Client based on CoreUI",
   "author": "Liu Min <capt.liu@foxmail.com>",
