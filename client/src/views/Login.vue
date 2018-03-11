@@ -2,12 +2,14 @@
   <div class="app flex-row align-items-center">
     <div class="container">
       <b-row class="justify-content-center">
-        <b-col md="8">
+        <b-col md="6">
           <b-card-group>
-            <b-card no-body class="p-4">
+            <b-card class="p-4">
               <b-card-body>
-                <h1>登陆</h1>
-                <p class="text-muted">登陆用户</p>
+                <b-row class="justify-content-center">
+                  <h2>监管支持系统登录</h2>
+                </b-row>
+                <hr>
                 <b-input-group class="mb-3">
                   <b-input-group-prepend>
                     <b-input-group-text>
@@ -24,17 +26,11 @@
                   </b-input-group-prepend>
                   <input type="password" class="form-control" placeholder="密码">
                 </b-input-group>
-                <b-row>
-                  <b-col cols="6">
-                    <b-button variant="primary" class="px-4">登陆</b-button>
-                  </b-col>
-                  <b-col cols="6" class="text-right">
-                    <!-- <b-button variant="link" class="px-0">Forgot password?</b-button> -->
-                  </b-col>
+                <b-row class="justify-content-center">
+                  <b-button variant="primary">登录</b-button>
                 </b-row>
               </b-card-body>
             </b-card>
-
           </b-card-group>
         </b-col>
       </b-row>
