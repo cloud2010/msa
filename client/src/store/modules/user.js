@@ -1,6 +1,6 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-
+/** 用户模块 state */
 const user = {
   state: {
     token: getToken(),
@@ -24,6 +24,11 @@ const user = {
     }
   },
 
+  /**
+   * actions 内可以使用异步方法
+   * mutations 只能使用同步方法
+   * 前者可以 commit 触发后者
+   * */ 
   actions: {
     // 登录提交
     Login({ commit }, userInfo) {
@@ -56,7 +61,7 @@ const user = {
       })
     },
 
-    // 登出
+    // 注销提交
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
@@ -70,7 +75,7 @@ const user = {
       })
     },
 
-    // 前端 登出
+    // 前端注销
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')

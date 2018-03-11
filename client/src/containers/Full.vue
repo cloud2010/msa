@@ -2,9 +2,9 @@
   <div class="app">
     <AppHeader/>
     <div class="app-body">
-      <Sidebar :navItems="nav"/>
+      <Sidebar :navItems="nav" />
       <main class="main">
-        <breadcrumb :list="list"/>
+        <breadcrumb :list="list" />
         <div class="container-fluid">
           <router-view></router-view>
         </div>
@@ -16,7 +16,12 @@
 
 <script>
 import nav from '../_nav'
-import { Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb } from '../components/'
+import {
+  Header as AppHeader,
+  Sidebar,
+  Footer as AppFooter,
+  Breadcrumb
+} from '../components/'
 
 export default {
   name: 'full',
@@ -27,16 +32,19 @@ export default {
     AppFooter,
     Breadcrumb
   },
-  data () {
+  data() {
     return {
       nav: nav.items
     }
   },
+  // 计算属性动态更新 value
   computed: {
-    name () {
+    // 当前路由名称
+    name: function() {
       return this.$route.name
     },
-    list () {
+    // 当前路由列表
+    list: function() {
       return this.$route.matched
     }
   }

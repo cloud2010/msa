@@ -90,17 +90,5 @@ export default {
         }
       ]
     }
-    // {
-    //   name: '通知类组件',
-    //   url: '/notifications',
-    //   icon: 'icon-bell',
-    //   children: [
-    //     {
-    //       name: '模态对话框',
-    //       url: '/notifications/modals',
-    //       icon: 'icon-bell'
-    //     }
-    //   ]
-    // }
   ]
 }
