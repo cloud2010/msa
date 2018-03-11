@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 /* 用户登录验证 */
 router.post('/login', function (req, res) {
-  console.log('\n------POST传入的登录验证添加数据------\n')
+  console.log('\n------POST传入的登录验证数据------\n')
   console.log(req.body)
   let userInfo = req.body
   Users.findOne({ account: userInfo.account }, function (err, docs) {
@@ -20,9 +20,14 @@ router.post('/login', function (req, res) {
       res.json({ info: '用户验证失败', code: -1 })
       logger.error(`用户验证失败-${err}`)
     } else if (docs !== null) {
-    //   console.log(docs)
+      //   console.log(docs)
       if (docs.password === userInfo.password) {
-        res.json({ info: '登录成功', code: 0 })
+        res.json({
+          info: '登录成功',
+          code: 0,
+          token: docs._id,
+          name: docs.name
+        })
       } else {
         res.json({ info: '密码错误', code: 1 })
       }
