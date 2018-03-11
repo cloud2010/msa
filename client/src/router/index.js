@@ -4,6 +4,9 @@ import Router from 'vue-router'
 // Containers
 import Full from '@/containers/Full'
 
+// LoginPage
+import Login from '@/views/Login'
+
 // Views - Dashboard
 import Dashboard from '@/views/Dashboard'
 
