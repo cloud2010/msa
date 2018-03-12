@@ -50,7 +50,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
   // 使用es6模版字符串``方法
-  logger.error(`Something went wrong: ${err.message} Request path: ${req.path}`)
+  logger.error(`${err.message} Request path: ${req.path}`)
   // render the error page
   res.status(err.status || 500)
   res.render('error')
