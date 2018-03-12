@@ -21,7 +21,7 @@
 
 主要技术：`express + mongoose`
 
-辅助技术：`babel + eslint + prettier + nodemon`
+辅助技术：`babel + eslint + prettier + nodemon + log4js`
 
 语法升级为 ES6,搭配 eslint 和 prettier 完成代码风格检查和 autofix
 
@@ -31,6 +31,7 @@
 2. [https://github.com/openyun/express-babel-es6](https://github.com/openyun/express-babel-es6)
 3. [https://github.com/vmasto/express-babel](https://github.com/vmasto/express-babel)
 4. [http://www.cnblogs.com/zhongweiv/p/mongoose.html](http://www.cnblogs.com/zhongweiv/p/mongoose.html)
+5. [http://blog.csdn.net/wangdan_2013/article/details/78851153](http://blog.csdn.net/wangdan_2013/article/details/78851153)
 
 ## 生产环境部署注意事项
 
