@@ -2,14 +2,16 @@
  * 数据库操作模块
  */
 import mongoose from 'mongoose'
+import dbConfig from '../config/conn.json'
 import { getLogger } from 'log4js'
 const logger = getLogger('db')
-mongoose.connect('mongodb://10.72.51.130:27017/msa')
+mongoose.connect(dbConfig.db.conn)
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
   // console.log('数据库msa连接成功')
+  logger.info(`数据库链接字符串-${dbConfig.db.conn}`)
   logger.info('数据库msa连接成功')
 })
 
@@ -51,7 +53,8 @@ const loginInfoSchema = new mongoose.Schema(
   {
     account: { type: String },
     password: { type: String },
-    user: { type: String }
+    user: { type: String },
+    roles: { type: Object }
   },
   { collection: 'loginInfo' }
 )

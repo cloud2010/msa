@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { Users } from './db'
+import { LoginInfo } from './db'
 import { getLogger } from 'log4js'
 const router = Router()
 const logger = getLogger('UserLogin')
@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
   console.log('\n------POST传入的登录验证数据------\n')
   console.log(req.body)
   let userInfo = req.body
-  Users.findOne({ account: userInfo.account }, function (err, docs) {
+  LoginInfo.findOne({ account: userInfo.account }, function (err, docs) {
     if (err) {
       res.json({ info: '用户验证失败', code: -1 })
       logger.error(`用户验证失败-${err}`)
@@ -26,7 +26,8 @@ router.post('/login', function (req, res) {
           info: '登录成功',
           code: 0,
           token: docs._id,
-          name: docs.name
+          name: docs.user,
+          role: docs.roles
         })
       } else {
         res.json({ info: '密码错误', code: 1 })
