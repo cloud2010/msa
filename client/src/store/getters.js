@@ -1,4 +1,5 @@
 const getters = {
+  code: state => state.user.code, //  登录状态码
   token: state => state.user.token, // 令牌
   name: state => state.user.name, // 用户名
   roles: state => state.user.roles, // 用户角色

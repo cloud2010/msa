@@ -38,4 +38,16 @@ router.post('/login', function (req, res) {
   })
 })
 
+router.get('/getUserInfo/:token', function (req, res) {
+  LoginInfo.findById(req.params.token, function (err, docs) {
+    if (err) {
+      logger.error(`获取用户信息失败-${err}`)
+    } else {
+      logger.info(req.path)
+      console.log(docs)
+      res.json(docs)
+    }
+  })
+})
+
 export default router

@@ -4,7 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 /** 用户模块 state */
 const user = {
   state: {
-    code: 0, // 登录状态码
+    code: -1, // 登录状态码
     token: getToken(),
     name: '',
     roles: []
@@ -34,9 +34,8 @@ const user = {
   actions: {
     // 登录提交
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
       this.$http
-        .post('/api/users/login', item)
+        .post('/api/users/login', userInfo)
         .then(response => {
           // 返回登录数据
           const authedData = response.data

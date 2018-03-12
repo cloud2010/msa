@@ -16,7 +16,7 @@
                       <i class="icon-user"></i>
                     </b-input-group-text>
                   </b-input-group-prepend>
-                  <input type="text" class="form-control" placeholder="用户名">
+                  <input type="text" class="form-control" required placeholder="用户名" v-model.trim="userInfo.account">
                 </b-input-group>
                 <b-input-group class="mb-4">
                   <b-input-group-prepend>
@@ -24,7 +24,7 @@
                       <i class="icon-lock"></i>
                     </b-input-group-text>
                   </b-input-group-prepend>
-                  <input type="password" class="form-control" placeholder="密码">
+                  <input type="password" class="form-control" required placeholder="密码" v-model.trim="userInfo.password">
                 </b-input-group>
                 <b-row class="justify-content-center">
                   <b-button variant="primary">登录</b-button>
@@ -34,12 +34,63 @@
           </b-card-group>
         </b-col>
       </b-row>
+      <!-- Modal Component -->
+      <b-modal title="提示" class="modal-primary" centered="true" @ok="handleOk" ok-title="确定" cancel-title="取消" v-model="infoModal">
+        <p>{{msg}}</p>
+      </b-modal>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data: () => {
+    return {
+      msg: '更新消息内容',
+      infoModal: false,
+      userInfo: { account: '', password: '' }
+    }
+  },
+  methods: {
+    handleLogin(evt) {
+      this.$store
+        .dispatch('Login', this.userInfo)
+        .then(() => {
+          // 读取登录验证状态码
+          switch (this.$store.user.code) {
+            case 0: // 登录成功
+              // 本地存储记录
+              localStorage.setItem('ms_username', this.userInfo.account)
+              // 命名路由跳转
+              this.$router.push('/Dashboard')
+              break
+            case 1:
+              this.msg = '密码错误'
+              this.infoModal = true
+              break
+            case 2:
+              this.msg = '用户不存在'
+              this.infoModal = true
+              break
+            case -1:
+              this.msg = '用户验证失败，请重试'
+              this.infoModal = true
+              break
+          }
+        })
+        .catch(() => {
+          this.msg = '登录失败'
+          this.infoModal = true
+        })
+    },
+    handleOk(evt) {
+      // Prevent modal from closing
+      evt.preventDefault()
+      this.infoModal = false
+      // 命名路由跳转
+      // this.$router.push({ name: 'Dashboard' })
+    }
+  }
 }
 </script>
