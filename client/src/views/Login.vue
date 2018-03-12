@@ -10,25 +10,27 @@
                   <h2>监管支持系统登录</h2>
                 </b-row>
                 <hr>
-                <b-input-group class="mb-3">
-                  <b-input-group-prepend>
-                    <b-input-group-text>
-                      <i class="icon-user"></i>
-                    </b-input-group-text>
-                  </b-input-group-prepend>
-                  <input type="text" class="form-control" required placeholder="用户名" v-model.trim="userInfo.account">
-                </b-input-group>
-                <b-input-group class="mb-4">
-                  <b-input-group-prepend>
-                    <b-input-group-text>
-                      <i class="icon-lock"></i>
-                    </b-input-group-text>
-                  </b-input-group-prepend>
-                  <input type="password" class="form-control" required placeholder="密码" v-model.trim="userInfo.password">
-                </b-input-group>
-                <b-row class="justify-content-center">
-                  <b-button variant="primary">登录</b-button>
-                </b-row>
+                <b-form @submit="handleLogin">
+                  <b-input-group class="mb-3">
+                    <b-input-group-prepend>
+                      <b-input-group-text>
+                        <i class="icon-user"></i>
+                      </b-input-group-text>
+                    </b-input-group-prepend>
+                    <input type="text" class="form-control" required placeholder="用户名" v-model.trim="userInfo.account">
+                  </b-input-group>
+                  <b-input-group class="mb-4">
+                    <b-input-group-prepend>
+                      <b-input-group-text>
+                        <i class="icon-lock"></i>
+                      </b-input-group-text>
+                    </b-input-group-prepend>
+                    <input type="password" class="form-control" required placeholder="密码" v-model.trim="userInfo.password">
+                  </b-input-group>
+                  <b-row class="justify-content-center">
+                    <b-button type="submit" variant="primary">登录</b-button>
+                  </b-row>
+                </b-form>
               </b-card-body>
             </b-card>
           </b-card-group>
@@ -54,16 +56,17 @@ export default {
   },
   methods: {
     handleLogin(evt) {
+      evt.preventDefault()
       this.$store
         .dispatch('Login', this.userInfo)
         .then(() => {
           // 读取登录验证状态码
-          switch (this.$store.user.code) {
+          // alert(this.$store.state.user.code)
+          switch (this.$store.state.user.code) {
             case 0: // 登录成功
-              // 本地存储记录
-              localStorage.setItem('ms_username', this.userInfo.account)
               // 命名路由跳转
-              this.$router.push('/Dashboard')
+              localStorage.setItem('msa_username', this.$store.state.user.name)
+              this.$router.push({ path: '/dashboard' })
               break
             case 1:
               this.msg = '密码错误'
@@ -80,6 +83,7 @@ export default {
           }
         })
         .catch(() => {
+          // alert(this.$store.state.user.token)
           this.msg = '登录失败'
           this.infoModal = true
         })

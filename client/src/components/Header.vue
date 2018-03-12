@@ -13,13 +13,13 @@
       <b-nav-item-dropdown right>
         <!-- Using button-content slot -->
         <template slot="button-content">
-          <i class="fa fa-user mr-2"></i>用户
+          <i class="fa fa-user mr-2"></i>{{username}}
         </template>
         <b-dropdown-header tag="div" class="text-center">
           <strong>基本信息</strong>
         </b-dropdown-header>
-        <b-dropdown-item href="#">修改密码</b-dropdown-item>
-        <b-dropdown-item href="#">退出</b-dropdown-item>
+        <!-- <b-dropdown-item href="#">修改密码</b-dropdown-item> -->
+        <b-dropdown-item @click="handleLogout">注销</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item class="px-3">APP下载</b-nav-item>
       <b-nav-item class="px-3">帮助文档</b-nav-item>
@@ -29,7 +29,22 @@
 <script>
 export default {
   name: 'c-header',
+  data: () => {
+    return {}
+  },
+  computed: {
+    username() {
+      const username = localStorage.getItem('msa_username')
+      return username
+    }
+  },
   methods: {
+    handleLogout() {
+      localStorage.removeItem('msa_username')
+      this.$store.dispatch('FedLogOut').then(() => {
+        location.reload() // 为了重新实例化vue-router对象 避免bug
+      })
+    },
     sidebarToggle(e) {
       e.preventDefault()
       document.body.classList.toggle('sidebar-hidden')

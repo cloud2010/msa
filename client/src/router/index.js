@@ -238,7 +238,7 @@ export const constantRouterMap = [
   },
   {
     path: '/login',
-    name: '登录页面',
+    name: 'Login',
     hidden: true,
     component: Login
   }
