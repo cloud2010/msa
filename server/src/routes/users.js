@@ -27,7 +27,7 @@ router.post('/login', function (req, res) {
           code: 0,
           token: docs._id,
           name: docs.user,
-          role: docs.roles
+          roles: docs.roles
         })
       } else {
         res.json({ info: '密码错误', code: 1 })

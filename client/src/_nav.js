@@ -20,51 +20,51 @@ export default {
     },
     {
       name: '危险货物',
-      url: '/base/dbinfo',
+      url: '/dbinfo',
       icon: 'fa fa-anchor',
       children: [
         {
           name: '查看编辑数据',
-          url: '/base/dbinfo/view',
+          url: '/dbinfo/view',
           icon: 'fa fa-table'
         },
         {
           name: '添加数据',
-          url: '/base/dbinfo/add',
+          url: '/dbinfo/add',
           icon: 'fa fa-pencil'
         }
       ]
     },
     {
       name: '应急处置支持',
-      url: '/base/emergency',
+      url: '/emergency',
       icon: 'fa fa-support',
       children: [
         {
           name: '查看编辑数据',
-          url: '/base/emergency/view',
+          url: '/emergency/view',
           icon: 'fa fa-table'
         },
         {
           name: '添加数据',
-          url: '/base/emergency/add',
+          url: '/emergency/add',
           icon: 'fa fa-pencil'
         }
       ]
     },
     {
       name: '液货船作业检查',
-      url: '/base/cargoship',
+      url: '/cargoship',
       icon: 'fa fa-ship',
       children: [
         {
           name: '查看编辑数据',
-          url: '/base/cargoship/view',
+          url: '/cargoship/view',
           icon: 'fa fa-table'
         },
         {
           name: '添加数据',
-          url: '/base/cargoship/add',
+          url: '/cargoship/add',
           icon: 'fa fa-pencil'
         }
       ]
