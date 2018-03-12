@@ -34,13 +34,13 @@ export default {
   },
   computed: {
     username() {
-      const username = localStorage.getItem('msa_username')
+      const username = this.$store.state.user.name
       return username
     }
   },
   methods: {
     handleLogout() {
-      localStorage.removeItem('msa_username')
+      localStorage.removeItem('msa_userid')
       this.$store.dispatch('FedLogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug
       })

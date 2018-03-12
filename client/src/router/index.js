@@ -32,6 +32,23 @@ import EmergencyAdd from '@/views/base/emergency/Add'
 
 Vue.use(Router)
 
+// 静态路由
+export const constantRouterMap = [
+  {
+    path: '/login',
+    name: 'Login',
+    hidden: true,
+    component: Login
+  }
+]
+
+export default new Router({
+  // mode: 'hash', // 路由模式
+  linkActiveClass: 'open active', // CSS样式控制
+  scrollBehavior: () => ({ y: 0 }), // 滚动行为
+  routes: constantRouterMap
+})
+
 // 动态需要根据权限加载的路由表
 export const asyncRouterMap = [
   {
@@ -40,7 +57,7 @@ export const asyncRouterMap = [
     name: 'Home',
     meta: {
       label: '首页',
-      roles: ['admin']
+      roles: ['admin', 'viewer']
     },
     component: Full,
     children: [
@@ -50,7 +67,7 @@ export const asyncRouterMap = [
         component: Dashboard,
         meta: {
           label: '发布数据库',
-          roles: ['admin']
+          roles: ['admin', 'viewer']
         }
       },
       {
@@ -158,7 +175,7 @@ export const asyncRouterMap = [
             name: 'emergencyView',
             meta: {
               label: '数据查看',
-              roles: ['admin']
+              roles: ['admin', 'viewer']
             },
             component: Emergency
           },
@@ -226,27 +243,7 @@ export const asyncRouterMap = [
         ]
       }
     ]
-  }
-]
-
-// 静态路由
-export const constantRouterMap = [
-  {
-    path: '/',
-    redirect: '/login',
-    hidden: true
   },
-  {
-    path: '/login',
-    name: 'Login',
-    hidden: true,
-    component: Login
-  }
+  // 无访问权限则跳转到404页面
+  { path: '*', redirect: '/404', hidden: true }
 ]
-
-export default new Router({
-  mode: 'hash', // 路由模式
-  linkActiveClass: 'open active', // CSS样式控制
-  scrollBehavior: () => ({ y: 0 }), // 滚动行为
-  routes: constantRouterMap
-})

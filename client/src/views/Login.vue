@@ -10,7 +10,7 @@
                   <h2>监管支持系统登录</h2>
                 </b-row>
                 <hr>
-                <b-form @submit="handleLogin">
+                <b-form @submit.prevent="handleLogin">
                   <b-input-group class="mb-3">
                     <b-input-group-prepend>
                       <b-input-group-text>
@@ -55,8 +55,8 @@ export default {
     }
   },
   methods: {
-    handleLogin(evt) {
-      evt.preventDefault()
+    handleLogin() {
+      // evt.preventDefault()
       this.$store
         .dispatch('Login', this.userInfo)
         .then(() => {
@@ -65,7 +65,7 @@ export default {
           switch (this.$store.state.user.code) {
             case 0: // 登录成功
               // 命名路由跳转
-              localStorage.setItem('msa_username', this.$store.state.user.name)
+              localStorage.setItem('msa_userid', this.userInfo.account)
               this.$router.push({ path: '/dashboard' })
               break
             case 1:

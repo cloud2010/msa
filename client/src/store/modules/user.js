@@ -48,8 +48,7 @@ const user = {
                 // 调用对应的 mutations
                 commit('SET_CODE', authedData.code)
                 commit('SET_TOKEN', authedData.token)
-                commit('SET_NAME', authedData.name)
-                commit('SET_ROLES', authedData.roles)
+                // 动态路由未初始化前不要先设定角色信息
                 break
               default:
                 // 设定异常登录状态码
@@ -93,7 +92,7 @@ const user = {
       })
     },
 
-    // 获取用户信息
+    // 登录验证成功后再获取用户信息，便于动态生成路由
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         axios
@@ -103,7 +102,7 @@ const user = {
             let userInfo = response.data
             // 调用对应的 mutations
             // 设定本地 Cookie Token
-            commit('SET_NAME', userInfo.name)
+            commit('SET_NAME', userInfo.user)
             commit('SET_ROLES', userInfo.roles)
             resolve(response)
           })
