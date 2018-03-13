@@ -17,7 +17,7 @@
                             </b-form-input>
                         </b-form-group>
                         <b-form-group id="fd-3" label="新密码" label-for="input-password">
-                            <b-form-input id="input-password" :state="passwdState" aria-describedby="inputLiveFeedback-passwd" type="password" placeholder="请输入用户密码" v-model.trim="items.password">
+                            <b-form-input id="input-password-1" :state="passwdState" aria-describedby="inputLiveFeedback-passwd" type="password" placeholder="请输入用户密码" v-model.trim="items.password">
                             </b-form-input>
                             <b-form-invalid-feedback id="inputLiveFeedback-passwd">
                                 <!-- This will only be shown if the preceeding input has an invalid state -->
@@ -25,7 +25,7 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group id="fd-4" label="再次确认密码" label-for="input-password">
-                            <b-form-input id="input-password" :state="confirmState" aria-describedby="inputLiveFeedback-confirm" type="password" placeholder="请再次输入密码" v-model.trim="passwordConfirm">
+                            <b-form-input id="input-password-2" :state="confirmState" aria-describedby="inputLiveFeedback-confirm" type="password" placeholder="请再次输入密码" v-model.trim="passwordConfirm">
                             </b-form-input>
                             <b-form-invalid-feedback id="inputLiveFeedback-confirm">
                                 <!-- This will only be shown if the preceeding input has an invalid state -->

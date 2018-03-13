@@ -40,7 +40,7 @@ const permission = {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
-      console.log('state.routers', state.routers)
+      // console.log('state.routers', state.routers)
     }
   },
   actions: {
@@ -49,15 +49,15 @@ const permission = {
         const { roles } = data
         let accessedRouters
         if (roles.indexOf('admin') >= 0) {
-          console.log('admin>=0')
+          // console.log('admin>=0')
           // 管理员获得所有路由权限
           accessedRouters = asyncRouterMap
         } else {
-          console.log('admin<0')
+          // console.log('admin<0')
           // 按角色权限生成动态路由
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
-        console.log('accessedRouters', accessedRouters)
+        // console.log('accessedRouters', accessedRouters)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
