@@ -7,6 +7,9 @@ import Full from '@/containers/Full'
 // LoginPage
 import Login from '@/views/Login'
 
+// 404 Page
+import NoFound from '@/views/404'
+
 // Views - Dashboard
 import Dashboard from '@/views/Dashboard'
 
@@ -34,12 +37,8 @@ Vue.use(Router)
 
 // 静态路由
 export const constantRouterMap = [
-  {
-    path: '/login',
-    name: 'Login',
-    hidden: true,
-    component: Login
-  }
+  { path: '/login', name: 'Login', component: Login },
+  { path: '/404', name: 'NoFound', component: NoFound }
 ]
 
 export default new Router({
@@ -245,5 +244,5 @@ export const asyncRouterMap = [
     ]
   },
   // 无访问权限则跳转到404页面
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404' }
 ]

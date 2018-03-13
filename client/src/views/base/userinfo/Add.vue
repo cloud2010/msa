@@ -45,7 +45,8 @@ export default {
       items: {
         account: '',
         password: '',
-        user: ''
+        user: '',
+        roles: ['viewer']
       }
     }
   },

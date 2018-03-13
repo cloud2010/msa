@@ -7,7 +7,7 @@
         <div class="card-actions">
           <!-- 命名路由 -->
           <strong>
-            <b-link :to="{ name: 'emergencyAdd' }">添加</b-link>
+            <b-link :to="{ name: 'emergencyAdd' }" :disabled="btnDisabled">添加</b-link>
           </strong>
         </div>
       </div>
@@ -19,12 +19,12 @@
           </b-button>
         </template>
         <template slot="edit_details" slot-scope="row">
-          <b-button :to="{ name: 'emergencyEdit', params: { eId: row.item._id }}" size="sm" class="mr-2" variant="success">
+          <b-button :disabled="btnDisabled" :to="{ name: 'emergencyEdit', params: { eId: row.item._id }}" size="sm" class="mr-2" variant="success">
             修改
           </b-button>
         </template>
         <template slot="del_details" slot-scope="row">
-          <b-button size="sm" @click.stop="info(row.item, row.item._id, $event.target)" class="mr-2" variant="danger">
+          <b-button :disabled="btnDisabled" size="sm" @click.stop="info(row.item, row.item._id, $event.target)" class="mr-2" variant="danger">
             删除
           </b-button>
         </template>
@@ -147,6 +147,17 @@ export default {
       perPage: 15,
       totalRows: 0,
       modalInfo: { id: 0, title: '', content: '' }
+    }
+  },
+  // 计算属性动态更新 value
+  computed: {
+    btnDisabled: function() {
+      if (this.$store.state.user.roles.indexOf('admin') >= 0) {
+        return false
+      } else {
+        // 非管理员禁止相关按钮点击
+        return true
+      }
     }
   },
   methods: {

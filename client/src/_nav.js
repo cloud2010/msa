@@ -90,5 +90,61 @@ export default {
         }
       ]
     }
+  ],
+  uItems: [
+    {
+      name: '控制台',
+      url: '/dashboard',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'primary',
+        text: 'NEW'
+      }
+    },
+    {
+      title: true,
+      name: '数据维护',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: '危险货物',
+      url: '/dbinfo',
+      icon: 'fa fa-anchor',
+      children: [
+        {
+          name: '查看数据',
+          url: '/dbinfo/view',
+          icon: 'fa fa-table'
+        }
+      ]
+    },
+    {
+      name: '应急处置支持',
+      url: '/emergency',
+      icon: 'fa fa-support',
+      children: [
+        {
+          name: '查看数据',
+          url: '/emergency/view',
+          icon: 'fa fa-table'
+        }
+      ]
+    },
+    {
+      name: '液货船作业检查',
+      url: '/cargoship',
+      icon: 'fa fa-ship',
+      children: [
+        {
+          name: '查看数据',
+          url: '/cargoship/view',
+          icon: 'fa fa-table'
+        }
+      ]
+    }
   ]
 }

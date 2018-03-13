@@ -63,7 +63,8 @@ router.post('/login-info/add', function (req, res) {
   let newLoginInfo = new LoginInfo({
     account: addItem.account,
     password: addItem.password,
-    user: addItem.user
+    user: addItem.user,
+    roles: addItem.roles
   })
   newLoginInfo.save(function (err, docs) {
     if (err) {
