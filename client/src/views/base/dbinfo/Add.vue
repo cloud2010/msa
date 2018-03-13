@@ -9,7 +9,7 @@
           <hr>
           <!-- 提交按钮方法绑定 -->
           <b-form @submit.prevent="addItem">
-            <b-form-group id="fd-1" label="项目编号" description="请输入数字编号" label-for="input-number">
+            <b-form-group id="fd-1" label="项目编号" :description="`系统自动生成的编号为：${items.Number}`" label-for="input-number">
               <b-form-input id="input-number" type="number" placeholder="请输入项目编号" required v-model="items.Number">
               </b-form-input>
             </b-form-group>
@@ -417,8 +417,22 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    getMaxNumber() {
+      // 发送异步请求
+      this.$http
+        .get('/api/db-info/max')
+        .then(response => {
+          // 绑定数据
+          this.items.Number = response.data.maxNum + 1
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
-  created() {}
+  created() {
+    this.getMaxNumber()
+  }
 }
 </script>

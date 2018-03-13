@@ -222,6 +222,19 @@ router.get('/emergency', function (req, res) {
     })
 })
 
+/* 向客户端响应 emergency 编号最大值 */
+router.get('/emergency/max', function (req, res) {
+  Emergency.findOne()
+    .sort({ Number: -1 })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询出错-${err}`)
+      } else {
+        res.json({ maxNum: docs.Number })
+      }
+    })
+})
+
 /* 按条件查询 emergency 数据库信息 */
 router.get('/emergency/:id', function (req, res) {
   Emergency.findById(req.params.id, function (err, docs) {
@@ -324,6 +337,19 @@ router.get('/db-info', function (req, res) {
         logger.error(`查询出错-${err}`)
       } else {
         res.json(docs)
+      }
+    })
+})
+
+/* 向客户端响应 dbinfo 编号最大值 */
+router.get('/db-info/max', function (req, res) {
+  DBInfo.findOne()
+    .sort({ Number: -1 })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询出错-${err}`)
+      } else {
+        res.json({ maxNum: docs.Number })
       }
     })
 })

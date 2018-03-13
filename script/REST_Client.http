@@ -5,3 +5,7 @@ content-type: application/json; charset=utf-8
     "account": "admin",
     "password": "admin"
 }
+
+GET http://localhost:80/db-info/max HTTP/1.1
+
+GET http://localhost:80/emergency/max HTTP/1.1
