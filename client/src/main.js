@@ -8,6 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 // 挂载Vue ajax组件为第三方模块axios
 import axios from 'axios'
+import 'babel-polyfill'
 Vue.prototype.$http = axios
 // 挂载RBAC权限管理模块
 import '@/rbac'
