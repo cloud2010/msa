@@ -17,6 +17,7 @@ import Dashboard from '@/views/Dashboard'
 import LoginInfo from '@/views/base/userinfo/LoginInfo'
 import UserEdit from '@/views/base/userinfo/Edit'
 import UserAdd from '@/views/base/userinfo/Add'
+import Password from '@/views/base/userinfo/Password'
 
 // Views - DBinfo
 import DBinfo from '@/views/base/dbinfo/DBinfo'
@@ -66,6 +67,15 @@ export const asyncRouterMap = [
         component: Dashboard,
         meta: {
           label: '发布数据库',
+          roles: ['admin', 'viewer']
+        }
+      },
+      {
+        path: '/password',
+        name: 'Password',
+        component: Password,
+        meta: {
+          label: '修改密码',
           roles: ['admin', 'viewer']
         }
       },
