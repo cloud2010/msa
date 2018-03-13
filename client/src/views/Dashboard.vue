@@ -10,7 +10,7 @@
               <b-alert show variant="success">危险货物数据库版本：{{items.dVer}}</b-alert>
             </b-col>
             <b-col cols="6">
-              <b-button type="button" size="lg" variant="primary" @click="publishDModal = true">发布危险货物数据库</b-button>
+              <b-button v-show="btnIsShow" type="button" size="lg" variant="primary" @click="publishDModal = true">发布危险货物数据库</b-button>
             </b-col>
           </b-row>
           <hr>
@@ -19,7 +19,7 @@
               <b-alert show variant="success">应急处置支持数据库版本：{{items.eVer}}</b-alert>
             </b-col>
             <b-col cols="6">
-              <b-button type="button" size="lg" variant="primary" @click="publishEModal = true">发布应急处置支持数据库</b-button>
+              <b-button v-show="btnIsShow" type="button" size="lg" variant="primary" @click="publishEModal = true">发布应急处置支持数据库</b-button>
             </b-col>
           </b-row>
           <hr>
@@ -28,7 +28,7 @@
               <b-alert show variant="success">液货船作业检查数据库版本：{{items.cVer}}</b-alert>
             </b-col>
             <b-col cols="6">
-              <b-button type="button" size="lg" variant="primary" @click="publishCModal = true">发布液货船作业检查数据库</b-button>
+              <b-button v-show="btnIsShow" type="button" size="lg" variant="primary" @click="publishCModal = true">发布液货船作业检查数据库</b-button>
             </b-col>
           </b-row>
           <hr>
@@ -37,7 +37,7 @@
               <b-alert show variant="success">用户数据库版本：{{items.lVer}}</b-alert>
             </b-col>
             <b-col cols="6">
-              <b-button type="button" size="lg" variant="primary" @click="publishLModal = true">发布用户数据库</b-button>
+              <b-button v-show="btnIsShow" type="button" size="lg" variant="primary" @click="publishLModal = true">发布用户数据库</b-button>
             </b-col>
           </b-row>
           <hr>
@@ -90,6 +90,17 @@ export default {
       publishLInfo: '是否发布用户数据库？',
       publishEInfo: '是否发布应急处置支持数据库？',
       backupInfo: '是否备份全部数据库？'
+    }
+  },
+  // 计算属性动态更新 value
+  computed: {
+    btnIsShow: function() {
+      if (this.$store.state.user.roles.indexOf('admin') >= 0) {
+        return true
+      } else {
+        // 非管理员禁止相关按钮显示
+        return false
+      }
     }
   },
   methods: {
