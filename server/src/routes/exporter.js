@@ -16,15 +16,26 @@ router.get('/', function (req, res, next) {
 })
 
 /* 向客户端响应 verCheck 数据库信息 */
-router.get('/ver-check', function (req, res) {
+router.get('/ver-check/:name', (req, res) => {
+  VerCheck.findOne({ name: req.params.name }, {})
+    .then(result => {
+      logger.info(`查询版本成功-${req.path}`)
+      res.json(result)
+    })
+    .catch(errs => {
+      logger.error(`查询出错-${errs}`)
+    })
+})
+
+/* 向客户端响应 verCheck 数据库信息 */
+router.get('/ver-check', (req, res) => {
   VerCheck.find({}, {})
-    .sort({ name: 1 })
-    .exec(function (err, docs) {
-      if (err) {
-        logger.error(`查询出错-${err}`)
-      } else {
-        res.json(docs)
-      }
+    .then(result => {
+      logger.info(`查询全部版本成功-${req.path}`)
+      res.json(result)
+    })
+    .catch(errs => {
+      logger.error(`查询出错-${errs}`)
     })
 })
 
@@ -40,6 +51,7 @@ router.get('/publish/:name', function (req, res) {
       .then(exportVer('verCheck.json')) // 导出任意库后均再次导出 verCheck.json
       .catch(errs => {
         logger.error('数据库写入错误：', errs)
+        console.log('数据库写入错误：', errs)
       })
   }
   // 更新 verCheck 数据库中对应库的版本信息
@@ -145,37 +157,34 @@ router.get('/publish/:name', function (req, res) {
 })
 
 /* 向客户端响应数据库版本信息 */
-// router.get('/ver', function (req, res) {
-//   let dbVer = exportVer('verCheck.json')
-//   if (dbVer === 0) {
-//     console.log(dbVer)
-//     res.json({ info: '数据库导出成功' })
-//   } else {
-//     res.json({ info: '数据库导出失败' })
-//   }
-// })
+router.get('/ver', function (req, res) {
+  VerCheck.find({}, {})
+    .then(resolved => {
+      let dbState = resolved
+      res.json(dbState)
+    })
+    .catch(errs => {
+      res.json(errs)
+    })
+  // exportVer('verCheck.json')
+  // res.json({ info: 0 })
+})
 
 const exportVer = jsonName => {
-  let ver = { verCheck: [] }
+  // let ver = { verCheck: [] }
   VerCheck.find({}, {})
-    .exec((err, docs) => {
-      if (err) {
-        logger.error(`版本查询出错-${err}`)
-      } else {
-        logger.info('版本查询成功')
-        ver.verCheck = docs
-      }
-    })
-    .then(
+    .then(results => {
       // 链式调用导出版本库
       writeFileAsync(
         path.join(__dirname, `../../public/data/${jsonName}`),
-        JSON.stringify(ver),
+        JSON.stringify({ verCheck: results }),
         'utf-8'
-      ).catch(errs => {
-        logger.error('版本导出错误:', errs)
-      })
-    )
+      )
+    })
+    .catch(errs => {
+      logger.error('版本导出错误:', errs)
+      console.log('版本导出错误:', errs)
+    })
 }
 
 export default router

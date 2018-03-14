@@ -116,7 +116,7 @@ export default {
       this.$http
         .get('/api/export/ver-check')
         .then(response => {
-          console.log(response)
+          // console.log(response)
           // 绑定数据
           // this.items = response.data
           response.data.forEach(element => {
@@ -147,8 +147,8 @@ export default {
         .get(`/api/export/publish/${dbname}`)
         .then(response => {
           alert(response.data.info)
+          this.getDatabaseInfo()
         })
-        .then(this.getDatabaseInfo())
         .catch(error => {
           alert(error)
         })

@@ -6,6 +6,7 @@ import dbConfig from '../config/conn.json'
 import { getLogger } from 'log4js'
 const logger = getLogger('db')
 mongoose.connect(dbConfig.db.conn)
+mongoose.Promise = Promise
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
