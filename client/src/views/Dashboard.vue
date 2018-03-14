@@ -1,12 +1,12 @@
 <template>
   <div class="animated fadeIn">
     <b-row>
-      <b-col cols="10">
+      <b-col cols="8">
         <b-card :header="caption">
           <b-alert show variant="primary">欢迎登陆监管支持系统！</b-alert>
           <hr>
           <b-row>
-            <b-col cols="6">
+            <b-col cols="9">
               <b-alert show variant="success">危险货物数据库版本：{{items.dVer}}</b-alert>
             </b-col>
             <b-col cols="3">
@@ -15,7 +15,7 @@
           </b-row>
           <hr>
           <b-row>
-            <b-col cols="6">
+            <b-col cols="9">
               <b-alert show variant="success">应急处置支持数据库版本：{{items.eVer}}</b-alert>
             </b-col>
             <b-col cols="3">
@@ -24,7 +24,7 @@
           </b-row>
           <hr>
           <b-row>
-            <b-col cols="6">
+            <b-col cols="9">
               <b-alert show variant="success">液货船作业检查数据库版本：{{items.cVer}}</b-alert>
             </b-col>
             <b-col cols="3">
@@ -33,7 +33,7 @@
           </b-row>
           <hr>
           <b-row>
-            <b-col cols="6">
+            <b-col cols="9">
               <b-alert show variant="success">用户数据库版本：{{items.lVer}}</b-alert>
             </b-col>
             <b-col cols="3">
@@ -47,6 +47,10 @@
             </b-col>
           </b-row>
         </b-card>
+      </b-col>
+      <b-col cols="4">
+        <b-img fluid rounded block src="static/img/apk-link.png" />
+        <h4 class="ml-2"><b>扫描上方二维码下载客户端</b></h4>
       </b-col>
     </b-row>
     <!-- Modal Component -->

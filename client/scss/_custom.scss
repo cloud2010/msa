@@ -1,1 +1,6 @@
 // Here you can add other styles
+$qrcode-img: url('../img/apk-link.png') !default;
+.qrCode {
+  background-image: $qrcode-img;
+  height: auto;
+}

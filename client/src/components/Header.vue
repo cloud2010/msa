@@ -21,7 +21,7 @@
         <b-dropdown-item :to="{path: '/password'}">修改密码</b-dropdown-item>
         <b-dropdown-item @click="handleLogout">注销</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item class="px-3">APP下载</b-nav-item>
+      <b-nav-item :to="{path: '/apk/monitoringSystem.apk'}" class="px-3">APP下载</b-nav-item>
       <!-- <b-nav-item class="px-3">帮助文档</b-nav-item> -->
     </b-navbar-nav>
   </header>
