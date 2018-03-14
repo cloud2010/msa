@@ -48,7 +48,9 @@ router.get('/publish/:name', function (req, res) {
       JSON.stringify(data),
       'utf-8'
     )
-      .then(exportVer('verCheck.json')) // 导出任意库后均再次导出 verCheck.json
+      .then(resolved => {
+        exportVer('verCheck.json')
+      }) // 导出任意库后均再次导出 verCheck.json
       .catch(errs => {
         logger.error('数据库写入错误：', errs)
         console.log('数据库写入错误：', errs)
