@@ -50,7 +50,9 @@
       </b-col>
       <b-col cols="4">
         <b-img fluid rounded block src="static/img/apk-link.png" />
-        <h4 class="ml-2"><b>扫描上方二维码下载客户端</b></h4>
+        <h4 class="ml-2">
+          <b>扫描上方二维码下载客户端</b>
+        </h4>
       </b-col>
     </b-row>
     <!-- Modal Component -->
@@ -145,8 +147,8 @@ export default {
         .get(`/api/export/publish/${dbname}`)
         .then(response => {
           alert(response.data.info)
-          this.getDatabaseInfo()
         })
+        .then(this.getDatabaseInfo())
         .catch(error => {
           alert(error)
         })
