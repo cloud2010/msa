@@ -12,10 +12,10 @@
               <b-form-input id="input-number" type="text" disabled="true" v-model="items.Number">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
+            <!-- <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
               <b-form-input id="input-capital" type="text" v-model="items.capital">
               </b-form-input>
-            </b-form-group>
+            </b-form-group> -->
             <b-form-group id="fd-3" label="联合国编号" label-for="input-Unnum">
               <b-form-input id="input-Unnum" type="text" v-model="items.Unnum">
               </b-form-input>
@@ -337,7 +337,7 @@ export default {
       this.$http
         .post('/api/db-info/update', item)
         .then(response => {
-          console.log(response)
+          // console.log(response)
           // 绑定数据到提示框
           this.msg = response.data.info
         })

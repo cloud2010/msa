@@ -12,10 +12,10 @@
               <b-form-input id="input-no" type="text" placeholder="请输入项目编号" disabled="true" v-model="items.no">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
+            <!-- <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
               <b-form-input id="input-capital" type="text" placeholder="请输入污染类别" v-model="items.capital">
               </b-form-input>
-            </b-form-group>
+            </b-form-group> -->
             <b-form-group id="fd-3" label="中文名" label-for="input-name">
               <b-form-input id="input-name" type="text" placeholder="请输入中文名" v-model="items.name">
               </b-form-input>

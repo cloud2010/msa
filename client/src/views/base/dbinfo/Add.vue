@@ -13,10 +13,10 @@
               <b-form-input id="input-number" type="number" placeholder="请输入项目编号" required v-model="items.Number">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
+            <!-- <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
               <b-form-input id="input-capital" type="text" placeholder="请输入污染类别" required v-model="items.capital">
               </b-form-input>
-            </b-form-group>
+            </b-form-group> -->
             <b-form-group id="fd-3" label="联合国编号" label-for="input-Unnum">
               <b-form-input id="input-Unnum" type="text" placeholder="请输入联合国编号" required v-model="items.Unnum">
               </b-form-input>
@@ -409,7 +409,7 @@ export default {
       this.$http
         .post('/api/db-info/add', item)
         .then(response => {
-          console.log(response)
+          // console.log(response)
           // 绑定数据到提示框
           this.msg = response.data.info
           alert(this.msg)

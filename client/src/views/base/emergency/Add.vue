@@ -13,10 +13,10 @@
               <b-form-input id="input-no" type="number" placeholder="请输入项目编号" required="true" v-model="items.no">
               </b-form-input>
             </b-form-group>
-            <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
+            <!-- <b-form-group id="fd-2" label="污染类别" label-for="input-capital">
               <b-form-input id="input-capital" type="text" placeholder="请输入污染类别" required="true" v-model="items.capital">
               </b-form-input>
-            </b-form-group>
+            </b-form-group> -->
             <b-form-group id="fd-3" label="中文名" label-for="input-name">
               <b-form-input id="input-name" type="text" placeholder="请输入中文名" required="true" v-model="items.name">
               </b-form-input>
@@ -99,7 +99,7 @@ export default {
       this.$http
         .post('/api/emergency/add', item)
         .then(response => {
-          console.log(response)
+          // console.log(response)
           // 绑定数据到提示框
           this.msg = response.data.info
           alert(this.msg)

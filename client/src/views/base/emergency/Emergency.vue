@@ -137,7 +137,7 @@ export default {
       items: {},
       fields: [
         { key: 'Number', label: '编号', sortable: true },
-        { key: 'capital', label: '污染类别' },
+        // { key: 'capital', label: '污染类别' },
         { key: 'ChineseName', label: '中文名' },
         { key: 'show_details', label: '详细内容' },
         { key: 'edit_details', label: '修改' },
