@@ -7,7 +7,7 @@
             <b-card class="p-4">
               <b-card-body>
                 <b-row class="justify-content-center">
-                  <h2>监管支持系统登录</h2>
+                  <h2>监管支持系统后台数据维护</h2>
                 </b-row>
                 <hr>
                 <b-form @submit.prevent="handleLogin">
