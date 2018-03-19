@@ -1,6 +1,7 @@
 <template>
   <footer class="app-footer">
     <!-- <span>&copy; 2018 上海海事局金山海事处</span> -->
+    <span>沪ICP备18008976号</span>
     <!-- <span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span> -->
   </footer>
 </template>

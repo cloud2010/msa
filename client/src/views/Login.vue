@@ -28,7 +28,11 @@
                     <input type="password" class="form-control" required placeholder="密码" v-model.trim="userInfo.password">
                   </b-input-group>
                   <b-row class="justify-content-center">
-                    <b-button type="submit" variant="primary">登录</b-button>
+                    <b-button type="submit" variant="primary" size="lg">登录</b-button>
+                  </b-row>
+                  <hr>
+                  <b-row class="justify-content-center">
+                    <small>沪ICP备18008976号</small>
                   </b-row>
                 </b-form>
               </b-card-body>
