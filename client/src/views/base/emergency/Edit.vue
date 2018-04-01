@@ -17,8 +17,8 @@
               </b-form-input>
             </b-form-group> -->
             <b-form-group id="fd-3" label="中文名" label-for="input-name">
-              <b-form-input id="input-name" type="text" placeholder="请输入中文名" v-model="items.name">
-              </b-form-input>
+              <b-form-select id="input-name" required :options="names" v-model="items.name">
+              </b-form-select>
             </b-form-group>
             <b-form-group id="fd-4" label="灭火方法" label-for="input-extinguishing">
               <b-form-textarea :rows="3" id="input-extinguishing" type="text" placeholder="请输入" v-model="items.extinguishing">
@@ -69,6 +69,7 @@ export default {
       captionTitle: '编辑数据',
       msg: '更新消息内容',
       infoModal: false,
+      names: [],
       items: {
         id: '0',
         no: '',
@@ -134,12 +135,26 @@ export default {
       this.infoModal = false
       // 命名路由跳转
       this.$router.push({ name: 'emergencyView' })
+    },
+    // 获取货物名称绑定下拉框
+    getDbinfoNames() {
+      // 发送异步请求
+      this.$http
+        .get('/api/db-info/names')
+        .then(response => {
+          // 绑定数据
+          this.names = this.names.concat(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   created() {
     this.items.id = this.$route.params.eId
     // 获取修改数据
     this.getEmergencyItem(this.items.id)
+    this.getDbinfoNames()
   }
 }
 </script>

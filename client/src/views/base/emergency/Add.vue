@@ -18,8 +18,8 @@
               </b-form-input>
             </b-form-group> -->
             <b-form-group id="fd-3" label="中文名" label-for="input-name">
-              <b-form-input id="input-name" type="text" placeholder="请输入中文名" required="true" v-model="items.name">
-              </b-form-input>
+              <b-form-select id="input-name" required :options="names" v-model="items.name">
+              </b-form-select>
             </b-form-group>
             <b-form-group id="fd-4" label="灭火方法" label-for="input-extinguishing">
               <b-form-textarea :rows="3" id="input-extinguishing" type="text" placeholder="请输入" v-model="items.extinguishing">
@@ -68,10 +68,12 @@ export default {
   data: () => {
     return {
       msg: '添加消息内容',
+      // 货物中文名称
+      names: [{ text: '请选择', value: null }],
       items: {
         no: '',
         capital: '',
-        name: '',
+        name: null,
         extinguishing: '',
         oilfence: '',
         protection: '',
@@ -119,10 +121,24 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    // 获取货物名称绑定下拉框
+    getDbinfoNames() {
+      // 发送异步请求
+      this.$http
+        .get('/api/db-info/names')
+        .then(response => {
+          // 绑定数据
+          this.names = this.names.concat(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   created() {
     this.getMaxNumber()
+    this.getDbinfoNames()
   }
 }
 </script>

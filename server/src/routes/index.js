@@ -354,6 +354,26 @@ router.get('/db-info/max', function (req, res) {
     })
 })
 
+/* 向客户端响应 dbinfo 数据库中货物名称 */
+router.get('/db-info/names', function (req, res) {
+  DBInfo.find({}, { ChineseName: 1, _id: 0 })
+    .sort({ ChineseName: 1 })
+    .exec(function (err, docs) {
+      if (err) {
+        logger.error(`查询货物名出错-${err}`)
+      } else {
+        let names = [] // 申明数组
+        for (let i of docs) {
+          // ES5
+          names = names.concat(i.ChineseName)
+          // ES6
+          // names = [...names, ...i.ChineseName]
+        }
+        res.json(names)
+      }
+    })
+})
+
 /* 按条件查询 dbinfo 数据库信息 */
 router.get('/db-info/:id', function (req, res) {
   DBInfo.findById(req.params.id, function (err, docs) {

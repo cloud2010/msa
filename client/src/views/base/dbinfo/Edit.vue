@@ -273,7 +273,7 @@ export default {
       classifications: [
         { text: '请选择', value: null },
         '油类',
-        '液化气类',
+        '液化气体',
         '化学品'
       ],
       fields: {
