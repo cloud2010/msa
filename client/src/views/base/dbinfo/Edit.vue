@@ -326,6 +326,9 @@ export default {
     },
     // 组件自定义方法onSubmit覆写
     updateItem() {
+      // 冗余字段赋值
+      this.items.basicInfo.classification = this.items.classification
+      this.items.basicInfo.Unnum = this.items.Unnum
       // 发送客户端更新请求
       this.updateDbinfoItem(this.items)
       // this.msg = JSON.stringify(this.items)

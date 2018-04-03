@@ -32,6 +32,9 @@
                   </b-row>
                   <hr>
                   <b-row class="justify-content-center">
+                    <small>本APP内容仅供参考，不作为执法依据</small>
+                  </b-row>
+                  <b-row class="justify-content-center">
                     <small>沪ICP备18008976号</small>
                   </b-row>
                 </b-form>
