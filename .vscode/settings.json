@@ -11,8 +11,5 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "vetur.format.defaultFormatter.js": "prettier",
-  "editor.fontFamily": "Fira Code",
-  "editor.fontWeight": "500",
-  "editor.fontLigatures": true
+  "vetur.format.defaultFormatter.js": "prettier"
 }
